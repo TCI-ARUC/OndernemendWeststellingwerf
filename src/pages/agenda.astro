@@ -5,7 +5,7 @@ import PageHero from '../components/PageHero.astro';
 import InfoBlock from '../components/InfoBlock.astro';
 import { agendaStijl, dag, maandKort } from '../lib/taxonomy';
 
-const filters = ['Alles', 'Netwerkborrels', 'Bedrijfsbezoeken', 'Regio-evenementen'];
+const filters = ['Alles', 'Netwerkborrels', 'Bedrijfsbezoeken', 'Regio-evenementen', 'Vieringen'];
 
 const events = (await getCollection('agenda'))
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf())

@@ -9,7 +9,6 @@ const NIEUWS_KLEUR: Record<string, string> = {
   Oproep: 'var(--oranje-tekst)',
   Regio: 'var(--rood)',
   Toerisme: 'var(--oranje)',
-  Gebied: 'var(--magenta)',
 };
 
 export function nieuwsKleur(category: string): string {

@@ -1,6 +1,6 @@
 ---
 title: "Noordwolder ondernemersfonds via reclamebelasting"
-category: "Gebied"
+category: "Regio"
 excerpt: "Samen investeren in ons gebied — hoe dat werkt."
 pubDate: 2026-02-18
 ---

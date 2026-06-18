@@ -78,8 +78,10 @@ met transparante achtergrond):
 - `logo-ow.png` — het volledige logo (waaier + woordmerk) voor waar dat beter past.
 
 ### Foto's
-De hero en nieuwskaarten gebruiken nu placeholder-vlakken. Vervang ze door echte foto's
-van Weststellingwerver ondernemers (geen stock — expliciete eis uit het Plan van Eisen).
+De hero en nieuwskaarten gebruiken echte foto's van Weststellingwerver ondernemers
+(geen stock — expliciete eis uit het Plan van Eisen). Nieuwsartikelen zonder eigen foto
+vallen terug op een net placeholder-vlak; voeg waar mogelijk een `image` toe in de
+frontmatter.
 
 ### Formulieren
 Het nieuwsbrief-formulier toont nu een demo-bevestiging. Koppel het in productie aan
