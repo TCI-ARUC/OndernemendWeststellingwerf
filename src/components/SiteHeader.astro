@@ -1,7 +1,7 @@
 ---
 // Gedeelde sticky header. `active` markeert de actieve nav-link.
 interface Props {
-  active?: 'home' | 'overons' | 'agenda' | 'leden' | 'lidmaatschap' | 'nieuws' | 'fonds';
+  active?: 'home' | 'overons' | 'agenda' | 'leden' | 'lidmaatschap' | 'nieuws' | 'fonds' | 'bedrijventerreinen';
 }
 const { active = 'home' } = Astro.props;
 
@@ -15,6 +15,7 @@ const nav = [
   { key: 'lidmaatschap', label: 'Lidmaatschap', href: '/lidmaatschap' },
   { key: 'nieuws', label: 'Nieuws', href: '/nieuws' },
   { key: 'fonds', label: 'Fonds', href: '/fonds' },
+  { key: 'bedrijventerreinen', label: 'Bedrijventerreinen', href: '/bedrijventerreinen' },
 ];
 ---
 
@@ -212,7 +213,8 @@ const nav = [
     box-shadow: var(--schaduw-magenta);
   }
 
-  @media (max-width: 900px) {
+  /* 8 nav-items passen alleen comfortabel op brede schermen; daaronder hamburger */
+  @media (max-width: 1140px) {
     .nav { display: none; }
     .actions .login,
     .actions .cta-pill { display: none; }

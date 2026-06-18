@@ -28,7 +28,7 @@ src/
   pages/
     index.astro            over-ons.astro    lidmaatschap.astro
     agenda.astro           leden.astro       nieuws.astro
-    fonds.astro            contact.astro
+    fonds.astro            contact.astro     bedrijventerreinen.astro
 public/img/                # afbeeldingen + logo
 ```
 
