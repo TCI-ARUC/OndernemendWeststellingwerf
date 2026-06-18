@@ -37,22 +37,22 @@ const leden = [
 ];
 
 // --- Lidmaatschap ---
-const kernFeatures = [
-  'Stemrecht in de vereniging',
-  'Collectieve belangenbehartiging',
-  'Eigen pagina op Stiekm Trots',
-  'Naamsvermelding op de website',
-  'Collectieve afvalinzameling',
-  'Tickets netwerkbijeenkomsten (€60 p.p.)',
+const basisFeatures = [
+  'Belangenbehartiging — jouw stem richting gemeente en provincie',
+  'Stemrecht — meebeslissen tijdens de ALV',
+  'Wekelijkse nieuwsbrief met regionaal nieuws',
+  'Collectieve voordelen via mantelcontracten',
 ];
-const connectieFeatures = [
-  'Logo + link naar je website op de OW-site',
-  'Toegang netwerkbijeenkomsten (1 pers.)',
-  '2× gratis introducé per jaar',
-  'Artikel in nieuwsbrief & op de website',
-  'Vlog/blog op Stiekm Trots & OW',
-  '20% korting op advertenties in het Magazine',
-  'Bewegwijzering & beveiliging bedrijventerreinen',
+const netwerkFeatures = [
+  'Gratis toegang tot alle borrels, bedrijfsbezoeken en het jaarfeest',
+  'Toegang tot de netwerk-app (ledenlijst)',
+  '1× per jaar een zakenrelatie meenemen',
+];
+const groeiFeatures = [
+  'PR-service: artikel over jouw bedrijf op site & socials',
+  'Kennis Academy: 2 exclusieve workshops',
+  'Expert-status op je profiel',
+  'Social Boost van jouw nieuws',
 ];
 
 // --- Nieuws: de drie meest recente artikelen uit de collectie ---
@@ -85,7 +85,7 @@ const nieuws = (await getCollection('nieuws'))
         <h1>Waar ondernemend Weststellingwerf <span class="accent">samenkomt.</span></h1>
         <p class="lead">Netwerk, regiomarketing, belangenbehartiging én economische groei — gebundeld in één sterke club. Samen bouwen we aan een vitaal Weststellingwerf, het meest onafhankelijke stukje Friesland.</p>
         <div class="hero-cta">
-          <a href="/lidmaatschap" class="btn-primary">Word lid — vanaf €50
+          <a href="/lidmaatschap" class="btn-primary">Word lid — vanaf €75
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
           <a href="#krachten" class="btn-ghost">Wat we doen</a>
@@ -211,16 +211,21 @@ const nieuws = (await getCollection('nieuws'))
     <div class="intro-center">
       <div class="kicker">Word lid</div>
       <h2>Kies wat bij jouw bedrijf past</h2>
-      <p>Twee lidmaatschappen, één doel: samen sterker ondernemen. Bedragen per jaar, excl. btw.</p>
+      <p>Drie lidmaatschappen, één doel: samen sterker ondernemen. Bedragen per jaar, excl. btw.</p>
     </div>
     <div class="prijs-grid">
       <PrijsCard
-        tier="Kern" price="€50" blurb="Iedereen kan lid worden en meteen meedoen."
-        ctaLabel="Word kernlid" ctaHref="/lidmaatschap" features={kernFeatures} />
+        tier="Basis" price="€75" blurb="Voor wie de regio steunt en profiteert van een sterk ondernemersklimaat."
+        ctaLabel="Word lid" ctaHref="/lidmaatschap" features={basisFeatures} />
       <PrijsCard
-        tier="Connectie" price="€325" blurb="Lid als bedrijf — maximaal zichtbaar en verbonden."
-        ctaLabel="Word connectielid" ctaHref="/lidmaatschap" featured
-        featuresIntro="Alles uit Kern, plus:" features={connectieFeatures} />
+        tier="Netwerk" price="€325" blurb="Voor wie actief wil verbinden en zaken wil doen tijdens onze events."
+        ctaLabel="Word netwerklid" ctaHref="/lidmaatschap" featured
+        featuresIntro="Alles uit Basis, plus:" features={netwerkFeatures} />
+      <PrijsCard
+        tier="Zichtbaar & Groei" price="€450" period="/ jaar (intro)"
+        blurb="Voor wie marketing, kennis en zichtbaarheid wil uitbesteden."
+        ctaLabel="Word lid" ctaHref="/lidmaatschap"
+        featuresIntro="Alles uit Netwerk, plus:" features={groeiFeatures} />
     </div>
   </section>
 
@@ -477,7 +482,7 @@ const nieuws = (await getCollection('nieuws'))
 
   .krachten-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .prijs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 920px; margin: 0 auto; }
+  .prijs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 1080px; margin: 0 auto; align-items: start; }
 
   /* ---------- Smoelenboek ---------- */
   .smoel {

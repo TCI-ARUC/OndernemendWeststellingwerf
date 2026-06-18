@@ -5,22 +5,22 @@ import PrijsCard from '../components/PrijsCard.astro';
 
 const SIGNUP = 'https://app.clubcollect.com/signup/249679c4-b120-42ac-8221-ab1bd5cccc36';
 
-const kernFeatures = [
-  'Stemrecht in de vereniging',
-  'Collectieve belangenbehartiging',
-  'Eigen pagina op Stiekm Trots',
-  'Naamsvermelding op de website',
-  'Collectieve afvalinzameling',
-  'Tickets netwerkbijeenkomsten (€60 p.p.)',
+const basisFeatures = [
+  'Belangenbehartiging — jouw stem richting gemeente en provincie',
+  'Stemrecht — meebeslissen tijdens de ALV',
+  'Wekelijkse nieuwsbrief met regionaal nieuws',
+  'Collectieve voordelen via mantelcontracten (Parkmanagement)',
 ];
-const connectieFeatures = [
-  'Logo + link naar je website op de OW-site',
-  'Toegang netwerkbijeenkomsten (1 pers.)',
-  '2× gratis introducé per jaar',
-  'Artikel in nieuwsbrief & op de website',
-  'Vlog/blog op Stiekm Trots & OW',
-  '20% korting op advertenties in het Magazine',
-  'Bewegwijzering & beveiliging bedrijventerreinen',
+const netwerkFeatures = [
+  'Gratis toegang tot alle borrels, bedrijfsbezoeken en het jaarfeest',
+  'Toegang tot de netwerk-app (ledenlijst)',
+  '1× per jaar een zakenrelatie meenemen',
+];
+const groeiFeatures = [
+  'PR-service: wij interviewen je en plaatsen een artikel op site & socials (1× p.j.)',
+  'Kennis Academy: 2 exclusieve workshops (o.a. AI, marketing, HR)',
+  'Expert-status: label "Uitgelicht" op je profiel',
+  'Social Boost: wij delen jouw nieuws op onze kanalen',
 ];
 
 const stappen = [
@@ -34,18 +34,23 @@ const stappen = [
   <PageHero
     kicker="Lidmaatschap"
     title="Kies wat bij jouw bedrijf past"
-    lead="Twee lidmaatschappen, één doel: samen sterker ondernemen. Bedragen per jaar, exclusief btw."
+    lead="Drie lidmaatschappen, één doel: samen sterker ondernemen. Bedragen per jaar, exclusief btw."
     center maxWidth={880} />
 
   {/* PRICING */}
   <section class="prijs-grid">
     <PrijsCard
-      tier="Kern" price="€50" blurb="Iedereen kan lid worden en meteen meedoen."
-      ctaLabel="Word kernlid" ctaHref={SIGNUP} ctaExternal features={kernFeatures} />
+      tier="Basis" price="€75" blurb="Voor wie de regio steunt en profiteert van een sterk ondernemersklimaat."
+      ctaLabel="Word lid" ctaHref={SIGNUP} ctaExternal features={basisFeatures} />
     <PrijsCard
-      tier="Connectie" price="€325" blurb="Lid als bedrijf — maximaal zichtbaar en verbonden."
-      ctaLabel="Word connectielid" ctaHref={SIGNUP} ctaExternal featured
-      featuresIntro="Alles uit Kern, plus:" features={connectieFeatures} />
+      tier="Netwerk" price="€325" blurb="Voor wie actief wil verbinden en zaken wil doen tijdens onze events."
+      ctaLabel="Word netwerklid" ctaHref={SIGNUP} ctaExternal featured
+      featuresIntro="Alles uit Basis, plus:" features={netwerkFeatures} />
+    <PrijsCard
+      tier="Zichtbaar & Groei" price="€450" period="/ jaar (introductietarief)"
+      blurb="Voor wie marketing, kennis en zichtbaarheid wil uitbesteden."
+      ctaLabel="Word lid" ctaHref={SIGNUP} ctaExternal
+      featuresIntro="Alles uit Netwerk, plus:" features={groeiFeatures} />
   </section>
 
   {/* STAPPEN */}
@@ -76,7 +81,7 @@ const stappen = [
 </Base>
 
 <style>
-  .prijs-grid { max-width: 920px; margin: 0 auto; padding: 18px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .prijs-grid { max-width: 1100px; margin: 0 auto; padding: 18px 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: start; }
   .wrap-920 { max-width: 920px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
   .pad { padding-top: 38px; padding-bottom: 38px; }
   .card { background: var(--wit); border: 1px solid var(--rand); border-radius: 22px; }
@@ -114,8 +119,10 @@ const stappen = [
     border-radius: var(--radius-pill);
   }
 
+  @media (max-width: 940px) {
+    .prijs-grid { grid-template-columns: 1fr; max-width: 460px; }
+  }
   @media (max-width: 760px) {
-    .prijs-grid { grid-template-columns: 1fr; }
     .stappen { grid-template-columns: 1fr; }
   }
 </style>

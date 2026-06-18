@@ -7,13 +7,13 @@ const branches = ['Alle branches', 'Bouw', 'Retail', 'Horeca', 'Zakelijk'];
 
 // Later automatisch uit de ledenadministratie (REST-API).
 const leden = [
-  { initials: 'JdJ', bg: 'var(--magenta)', name: 'Jumbo de Jong', branche: 'Retail', tier: 'Connectie' },
-  { initials: 'DH', bg: 'var(--teal)', name: 'Dragt Houtkonstruktie', branche: 'Bouw', tier: 'Connectie' },
-  { initials: 'CI', bg: 'var(--oranje)', name: 'Cura ICT', branche: 'ICT & zakelijk', tier: 'Connectie' },
-  { initials: 'ZvI', bg: 'var(--rood)', name: 'Zaak van Interactie', branche: 'Communicatie', tier: 'Connectie' },
-  { initials: 'TBN', bg: 'var(--ink-500)', name: 'TBN Consultancy', branche: 'Advies', tier: 'Connectie' },
-  { initials: 'DM', bg: 'var(--teal-tekst)', name: 'De Markestee', branche: 'Horeca', tier: 'Kern' },
-  { initials: 'RO', bg: 'var(--magenta)', name: 'Rudolf Ophof', branche: 'Zakelijk', tier: 'Kern' },
+  { initials: 'JdJ', bg: 'var(--magenta)', name: 'Jumbo de Jong', branche: 'Retail', tier: 'Zichtbaar & Groei' },
+  { initials: 'DH', bg: 'var(--teal)', name: 'Dragt Houtkonstruktie', branche: 'Bouw', tier: 'Zichtbaar & Groei' },
+  { initials: 'CI', bg: 'var(--oranje)', name: 'Cura ICT', branche: 'ICT & zakelijk', tier: 'Zichtbaar & Groei' },
+  { initials: 'ZvI', bg: 'var(--rood)', name: 'Zaak van Interactie', branche: 'Communicatie', tier: 'Zichtbaar & Groei' },
+  { initials: 'TBN', bg: 'var(--ink-500)', name: 'TBN Consultancy', branche: 'Advies', tier: 'Zichtbaar & Groei' },
+  { initials: 'DM', bg: 'var(--teal-tekst)', name: 'De Markestee', branche: 'Horeca', tier: 'Netwerk' },
+  { initials: 'RO', bg: 'var(--magenta)', name: 'Rudolf Ophof', branche: 'Zakelijk', tier: 'Netwerk' },
 ];
 ---
 
@@ -45,7 +45,7 @@ const leden = [
           <div class="avatar" style={`background:${l.bg}`}>{l.initials}</div>
           <div class="name">{l.name}</div>
           <div class="branche">{l.branche}</div>
-          <span class:list={['tier', { connectie: l.tier === 'Connectie' }]}>{l.tier}</span>
+          <span class:list={['tier', { hi: l.tier === 'Zichtbaar & Groei' }]}>{l.tier}</span>
         </div>
       ))}
       <a href="/lidmaatschap" class="lid more">
@@ -123,7 +123,7 @@ const leden = [
     padding: 4px 10px;
     border-radius: var(--radius-pill);
   }
-  .tier.connectie { background: rgba(149, 27, 129, .10); color: var(--magenta); }
+  .tier.hi { background: rgba(149, 27, 129, .10); color: var(--magenta); }
 
   .more {
     background: rgba(198, 196, 213, .25);
