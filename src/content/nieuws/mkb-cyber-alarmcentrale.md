@@ -3,6 +3,7 @@ title: "MKB Cyber Alarmcentrale"
 category: "Voor leden"
 excerpt: "Slim beschermd tegen digitale dreigingen, samen geregeld."
 pubDate: 2026-04-22
+image: /img/nieuws/mkb-cyber-alarmcentrale.png
 ---
 
 Slim beschermd tegen digitale dreigingen, samen geregeld. Als lid van Ondernemend

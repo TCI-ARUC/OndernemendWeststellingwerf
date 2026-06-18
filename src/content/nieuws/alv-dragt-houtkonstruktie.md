@@ -3,6 +3,7 @@ title: "Terugblik ALV & bezoek aan Dragt Houtkonstruktie"
 category: "Vereniging"
 excerpt: "Samen vooruitkijken én een mooi bedrijf van dichtbij zien."
 pubDate: 2026-05-12
+image: /img/nieuws/alv-dragt-houtkonstruktie.jpg
 ---
 
 Samen vooruitkijken én een mooi bedrijf van dichtbij zien. Tijdens de algemene

@@ -4,6 +4,7 @@ category: "Terugblik"
 excerpt: "Energiek kijkje achter de schermen bij een van onze leden."
 pubDate: 2026-05-28
 featured: true
+image: /img/nieuws/safari-jumbo-de-jong.jpg
 ---
 
 Een energiek kijkje achter de schermen bij een van onze leden — van logistiek tot
