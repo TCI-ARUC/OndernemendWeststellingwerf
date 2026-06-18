@@ -18,7 +18,7 @@ const nav = [
 ];
 ---
 
-<header class="site-header">
+<header class="site-header" data-header>
   <div class="ow-container bar">
     <a href="/" class="brand" aria-label="Ondernemend Weststellingwerf — home">
       <img src="/img/mark-ow.png" alt="" width="488" height="979" class="brand-mark" />
@@ -42,6 +42,27 @@ const nav = [
         Inloggen
       </a>
       <a href="/lidmaatschap" class="cta-pill">Word lid</a>
+      <button type="button" class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobiel-menu" data-toggle>
+        <svg class="i-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="i-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobiel-menu" data-menu>
+    <nav class="m-nav">
+      {nav.map((item) => (
+        <a href={item.href} class:list={['m-link', { active: active === item.key }]}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    <div class="m-actions">
+      <a href={LEDENPORTAAL} target="_blank" rel="noopener" class="m-login">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Inloggen
+      </a>
+      <a href="/lidmaatschap" class="m-cta">Word lid</a>
     </div>
   </div>
 </header>
@@ -69,6 +90,7 @@ const nav = [
     gap: 11px;
     text-decoration: none;
     flex: none;
+    min-width: 0;
   }
   .brand-mark { display: block; height: 38px; width: auto; }
   .brand-words {
@@ -131,8 +153,80 @@ const nav = [
     white-space: nowrap;
   }
 
-  /* Mobiel: nav verbergen (later vervangen door een hamburger-menu) */
+  /* Hamburger-knop: alleen op mobiel */
+  .menu-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid rgba(41, 35, 92, .16);
+    border-radius: 12px;
+    background: var(--wit);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .menu-toggle .i-close { display: none; }
+  .menu-toggle[aria-expanded='true'] .i-open { display: none; }
+  .menu-toggle[aria-expanded='true'] .i-close { display: block; }
+
+  /* Mobiel uitklapmenu */
+  .mobile-menu {
+    display: none;
+    border-top: 1px solid rgba(41, 35, 92, .10);
+    background: var(--paper);
+    padding: 10px 24px 18px;
+  }
+  .m-nav { display: flex; flex-direction: column; }
+  .m-link {
+    text-decoration: none;
+    color: var(--ink-500);
+    font-weight: 600;
+    font-size: 17px;
+    padding: 13px 8px;
+    border-radius: 10px;
+    border-bottom: 1px solid rgba(41, 35, 92, .06);
+  }
+  .m-link.active { color: var(--ink); font-weight: 800; background: rgba(149, 27, 129, .08); }
+  .m-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .m-login {
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 12px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .m-cta {
+    text-decoration: none;
+    text-align: center;
+    background: var(--magenta);
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--schaduw-magenta);
+  }
+
   @media (max-width: 900px) {
     .nav { display: none; }
+    .actions .login,
+    .actions .cta-pill { display: none; }
+    .menu-toggle { display: inline-flex; }
+    .mobile-menu.open { display: block; }
   }
 </style>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  const btn = header?.querySelector('[data-toggle]');
+  const menu = header?.querySelector('[data-menu]');
+  btn?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(Boolean(open)));
+  });
+</script>
