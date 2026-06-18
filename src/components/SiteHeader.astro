@@ -1,0 +1,137 @@
+---
+// Gedeelde sticky header. `active` markeert de actieve nav-link.
+interface Props {
+  active?: 'home' | 'overons' | 'agenda' | 'leden' | 'lidmaatschap' | 'nieuws' | 'fonds';
+}
+const { active = 'home' } = Astro.props;
+
+const LEDENPORTAAL = 'https://app.clubcollect.com/ma/0e1183ceb4f5c970bb0bb3080204adbabc8fe53c';
+
+const nav = [
+  { key: 'overons', label: 'Over ons', href: '/over-ons' },
+  { key: 'agenda', label: 'Agenda', href: '/agenda' },
+  { key: 'leden', label: 'Leden', href: '/leden' },
+  { key: 'lidmaatschap', label: 'Lidmaatschap', href: '/lidmaatschap' },
+  { key: 'nieuws', label: 'Nieuws', href: '/nieuws' },
+  { key: 'fonds', label: 'Fonds', href: '/fonds' },
+];
+---
+
+<header class="site-header">
+  <div class="ow-container bar">
+    <a href="/" class="brand" aria-label="Ondernemend Weststellingwerf — home">
+      <img src="/img/mark-ow.svg" alt="" width="38" height="38" class="brand-mark" />
+      <span class="brand-words">
+        <span class="brand-l1">Ondernemend</span>
+        <span class="brand-l2">Weststellingwerf</span>
+      </span>
+    </a>
+
+    <nav class="nav">
+      {nav.map((item) => (
+        <a href={item.href} class:list={['nav-link', { active: active === item.key }]}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="actions">
+      <a href={LEDENPORTAAL} target="_blank" rel="noopener" class="login">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Inloggen
+      </a>
+      <a href="/lidmaatschap" class="cta-pill">Word lid</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 248, 243, .85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(41, 35, 92, .10);
+  }
+  .bar {
+    height: 74px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    text-decoration: none;
+    flex: none;
+  }
+  .brand-mark { display: block; height: 38px; width: auto; }
+  .brand-words {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.02;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  .brand-l1 { font-size: 18px; }
+  .brand-l2 { font-size: 18px; font-weight: 600; color: var(--ink-500); }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+    font-size: 15.5px;
+    white-space: nowrap;
+  }
+  .nav-link {
+    text-decoration: none;
+    color: var(--ink-500);
+    padding: 9px 13px;
+    border-radius: 9px;
+  }
+  .nav-link:hover { color: var(--ink); }
+  .nav-link.active {
+    color: var(--ink);
+    font-weight: 800;
+    background: rgba(149, 27, 129, .08);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: none;
+  }
+  .login {
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 9px 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cta-pill {
+    text-decoration: none;
+    background: var(--magenta);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 11px 20px;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 6px 18px -6px rgba(149, 27, 129, .6);
+    white-space: nowrap;
+  }
+
+  /* Mobiel: nav verbergen (later vervangen door een hamburger-menu) */
+  @media (max-width: 900px) {
+    .nav { display: none; }
+  }
+</style>

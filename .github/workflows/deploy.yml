@@ -1,0 +1,42 @@
+name: Deploy naar GitHub Pages
+
+on:
+  # Bij elke push naar main
+  push:
+    branches: [main]
+  # En handmatig te starten vanuit het Actions-tabblad
+  workflow_dispatch:
+
+# Rechten die GitHub Pages-deploy nodig heeft
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Eén deploy tegelijk; lopende runs niet afbreken
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build Astro-site
+        uses: withastro/action@v3
+        # path: .          # repo-root (standaard)
+        # node-version: 20 # standaard
+        # package-manager: npm (autodetect via package-lock.json)
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy naar GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

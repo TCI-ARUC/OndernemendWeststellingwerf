@@ -1,0 +1,162 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+const LEDENPORTAAL = 'https://app.clubcollect.com/ma/0e1183ceb4f5c970bb0bb3080204adbabc8fe53c';
+---
+
+<Base title="Contact — Ondernemend Weststellingwerf">
+  <PageHero
+    kicker="Contact"
+    title="Even sparren of een vraag?"
+    lead="We zijn een nuchtere, laagdrempelige club. Stuur een bericht of loop binnen bij het Ondernemershuis."
+    maxWidth={1000} />
+
+  <section class="wrap layout">
+    {/* INFO */}
+    <div class="info-col">
+      <div class="card info-card">
+        <div class="info-row">
+          <div class="info-ic" style="background:rgba(149,27,129,.10);color:var(--magenta)">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="info-t">Het Ondernemershuis</div>
+            <div class="info-s">Wolvega, Weststellingwerf</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-ic" style="background:rgba(22,168,146,.12);color:var(--teal-tekst)">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="info-t">E-mail</div>
+            <a href="mailto:info@ondernemendweststellingwerf.nl" class="info-link break">info@ondernemendweststellingwerf.nl</a>
+          </div>
+        </div>
+        <div class="info-row last">
+          <div class="info-ic" style="background:rgba(240,144,0,.13);color:var(--oranje-tekst)">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div>
+            <div class="info-t">Ledenportaal</div>
+            <a href={LEDENPORTAAL} target="_blank" rel="noopener" class="info-link">Inloggen voor leden</a>
+          </div>
+        </div>
+      </div>
+      <div class="card info-card small">
+        <div class="info-t">Liever appen of bellen?</div>
+        <p>Het secretariaat helpt je snel verder met vragen over lidmaatschap, facturen en bijeenkomsten.</p>
+      </div>
+    </div>
+
+    {/* FORM */}
+    <div class="card form-card">
+      <h2>Stuur ons een bericht</h2>
+      {/* In productie koppelen aan een e-mail-endpoint of form-service. */}
+      <form class="contact-form" id="contact">
+        <div class="row">
+          <div class="field">
+            <label for="naam">Naam</label>
+            <input id="naam" name="naam" type="text" required />
+          </div>
+          <div class="field">
+            <label for="bedrijf">Bedrijf</label>
+            <input id="bedrijf" name="bedrijf" type="text" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+        <div class="field">
+          <label for="bericht">Bericht</label>
+          <textarea id="bericht" name="bericht" rows="5" required></textarea>
+        </div>
+        <button type="submit">Versturen</button>
+        <p class="form-msg" id="contact-msg" hidden></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('contact') as HTMLFormElement | null;
+  const msg = document.getElementById('contact-msg');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.reset();
+    if (msg) {
+      msg.textContent = 'Bedankt voor je bericht! We nemen snel contact op.';
+      msg.hidden = false;
+    }
+  });
+</script>
+
+<style>
+  .wrap { max-width: 1000px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  .layout {
+    padding: 18px 24px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .card { background: var(--wit); border: 1px solid var(--rand); }
+
+  .info-col { display: flex; flex-direction: column; gap: 14px; }
+  .info-card { border-radius: 18px; padding: 26px; }
+  .info-row { display: flex; gap: 13px; align-items: flex-start; margin-bottom: 18px; }
+  .info-row.last { margin-bottom: 0; }
+  .info-ic {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+  .info-t { font-weight: 800; font-size: 16px; color: var(--ink); }
+  .info-s { font-size: 14.5px; color: var(--tekst-dim); line-height: 1.5; }
+  .info-link { font-size: 14.5px; color: var(--magenta); text-decoration: none; }
+  .info-link.break { word-break: break-all; }
+  .info-card.small .info-t { margin-bottom: 6px; }
+  .info-card.small p { font-size: 14.5px; color: var(--tekst-dim); line-height: 1.55; margin: 0; }
+
+  .form-card { border-radius: 22px; padding: 34px; }
+  .form-card h2 { font-weight: 800; font-size: 22px; margin: 0 0 20px; color: var(--ink); }
+  .contact-form { display: flex; flex-direction: column; gap: 14px; }
+  .contact-form .row { display: flex; gap: 12px; }
+  .field { flex: 1; }
+  .field label { display: block; font-size: 13.5px; font-weight: 700; color: var(--ink-500); margin-bottom: 6px; }
+  .field input, .field textarea {
+    width: 100%;
+    border: 1.5px solid rgba(41, 35, 92, .16);
+    border-radius: var(--radius-veld);
+    padding: 13px 15px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--paper);
+  }
+  .field textarea { resize: vertical; }
+  .contact-form button {
+    border: none;
+    cursor: pointer;
+    background: var(--magenta);
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px;
+    border-radius: var(--radius-veld);
+    font-family: inherit;
+    box-shadow: var(--schaduw-magenta);
+  }
+  .form-msg { color: var(--ink); font-weight: 600; font-size: 14.5px; margin: 4px 0 0; }
+
+  @media (max-width: 760px) {
+    .layout { grid-template-columns: 1fr; }
+    .contact-form .row { flex-direction: column; }
+  }
+</style>

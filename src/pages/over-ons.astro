@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+const krachten = [
+  { accent: 'var(--magenta)', bg: 'rgba(149,27,129,.10)', color: 'var(--magenta)', title: 'Netwerk & agenda', text: 'Ontmoeten, sparren en groeien tijdens borrels, bezoeken en bijeenkomsten.', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  { accent: 'var(--oranje)', bg: 'rgba(240,144,0,.13)', color: 'var(--oranje-tekst)', title: 'Regiomarketing & aanjagen', text: 'Weststellingwerf op de kaart, met sterke winkelstraten en bedrijventerreinen.', icon: '<path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>' },
+  { accent: 'var(--teal)', bg: 'rgba(22,168,146,.12)', color: 'var(--teal-tekst)', title: 'Belangenbehartiging', text: 'Eén stevige stem richting gemeente en politiek — vaste gesprekspartner.', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
+  { accent: 'var(--rood)', bg: 'rgba(200,32,42,.10)', color: 'var(--rood)', title: 'Stimuleringsfonds', text: 'Straks: een renteloze lening voor innovatieve ideeën uit de regio.', icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>' },
+];
+---
+
+<Base title="Over ons — Ondernemend Weststellingwerf" active="overons">
+  <PageHero
+    kicker="Over ons"
+    title="Van, voor en door ondernemers"
+    lead="Ondernemend Weststellingwerf is een bijzondere club: netwerk én winkeliersvereniging, aanjager én belangenbehartiger. We bundelen krachten zodat ondernemen in onze gemeente sterker, leuker en toekomstbestendiger wordt."
+    fan maxWidth={880} />
+
+  {/* STORY */}
+  <section class="wrap-880 pad">
+    <div class="card story">
+      <h2>Hoe we zijn ontstaan</h2>
+      <p>In 2018 staken bestuursleden van Platform Recreatie &amp; Toerisme, WOW, CCW, SOW en Parkmanagement de koppen bij elkaar. Ze hadden samen een paar duidelijke wensen: een facilitair bureau om plannen écht uitgevoerd te krijgen, en Weststellingwerf steviger op de kaart zetten.</p>
+      <p>We merkten al snel dat we meer overeenkomsten dan verschillen hadden — en dat juist die verschillen de samenwerking waardevol maakten. Omdat we volledig gelijkwaardig georganiseerd zijn, was de stap naar één sterke club logisch. En die is er nu.</p>
+    </div>
+  </section>
+
+  {/* TWO BLOCKS */}
+  <section class="wrap-880 two">
+    <div class="card block" style="border-top:4px solid var(--oranje)">
+      <h3>Stiekm Trots</h3>
+      <p>Een rebelse aanpak om het onbekende Weststellingwerf onder de aandacht te brengen. Met een eigen consumentenwebsite, onlinemarketing en acties zetten we de regio in de spotlight — en groeiden we uit tot bredere gesprekspartner van de gemeente.</p>
+    </div>
+    <div class="card block" style="border-top:4px solid var(--teal)">
+      <h3>Krachten bundelen</h3>
+      <p>Eén voorzitter, één penningmeester, één activiteitenkalender — stoppen met dubbel werk. Door samen op te trekken houden we tijd over voor wat er écht toe doet: ondernemers verder helpen.</p>
+    </div>
+  </section>
+
+  {/* VIER KRACHTEN */}
+  <section class="wrap-1100 pad">
+    <div class="head-center">
+      <h2>Vier krachten, één club</h2>
+      <p>Een mini-MKB Nederland voor de regio. Dit is waar we ons sterk voor maken.</p>
+    </div>
+    <div class="krachten">
+      {krachten.map((k) => (
+        <div class="card kracht">
+          <div class="icon" style={`background:${k.bg};color:${k.color}`}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={k.icon} />
+          </div>
+          <h3>{k.title}</h3>
+          <p>{k.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* CTA */}
+  <section class="wrap-1100 cta-wrap">
+    <div class="cta-band">
+      <div class="cta-fan" aria-hidden="true"></div>
+      <div class="cta-inner">
+        <h2>Word jij ook lid?</h2>
+        <p>Sluit je aan bij 180+ ondernemers. Hoe groter ons netwerk, hoe zwaarder onze stem.</p>
+        <a href="/lidmaatschap" class="cta-btn">Bekijk het lidmaatschap
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .wrap-880 { max-width: 880px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  .wrap-1100 { max-width: 1100px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  .pad { padding-top: 34px; padding-bottom: 34px; }
+  .card { background: var(--wit); border: 1px solid var(--rand); border-radius: 22px; }
+  .story { padding: 40px 42px; }
+  .story h2 { font-weight: 800; font-size: 28px; letter-spacing: -.02em; margin: 0 0 16px; color: var(--ink); }
+  .story p { font-size: 17px; line-height: 1.65; color: var(--tekst); margin: 0 0 16px; }
+  .story p:last-child { margin-bottom: 0; }
+
+  .two { padding-top: 8px; padding-bottom: 34px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .block { border-radius: 0 0 18px 18px; padding: 30px; }
+  .block h3 { font-weight: 800; font-size: 21px; margin: 0 0 10px; color: var(--ink); }
+  .block p { font-size: 15.5px; line-height: 1.6; color: var(--tekst); margin: 0; }
+
+  .head-center { text-align: center; max-width: 600px; margin: 0 auto 30px; }
+  .head-center h2 { font-weight: 800; font-size: 32px; letter-spacing: -.02em; margin: 0 0 12px; color: var(--ink); }
+  .head-center p { font-size: 16.5px; line-height: 1.55; color: var(--tekst); margin: 0; }
+
+  .krachten { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .kracht { border-radius: 18px; padding: 26px; }
+  .kracht .icon { width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+  .kracht h3 { font-weight: 800; font-size: 19px; margin: 0 0 7px; color: var(--ink); }
+  .kracht p { font-size: 15px; line-height: 1.55; color: var(--tekst); margin: 0; }
+
+  .cta-wrap { padding-top: 34px; padding-bottom: 64px; }
+  .cta-band {
+    background: linear-gradient(120deg, #951B81, #29235C 70%);
+    border-radius: 24px;
+    padding: 46px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-fan {
+    position: absolute;
+    left: -50px;
+    bottom: -90px;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: conic-gradient(from 160deg, #F09000 0 8deg, transparent 8deg 16deg, #16A892 16deg 24deg, transparent 24deg 32deg, #C8202A 32deg 40deg, transparent 40deg 90deg);
+    opacity: .3;
+    mask: radial-gradient(circle, transparent 32%, #000 33%);
+  }
+  .cta-inner { position: relative; z-index: 1; }
+  .cta-inner h2 { font-weight: 800; font-size: 30px; letter-spacing: -.02em; margin: 0 0 12px; color: #fff; }
+  .cta-inner p { font-size: 17px; color: #E7DEF3; margin: 0 auto 24px; max-width: 520px; }
+  .cta-btn {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: #fff;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 16.5px;
+    padding: 15px 28px;
+    border-radius: var(--radius-pill);
+  }
+
+  @media (max-width: 760px) {
+    .two { grid-template-columns: 1fr; }
+    .krachten { grid-template-columns: 1fr; }
+    .story { padding: 30px 26px; }
+  }
+</style>

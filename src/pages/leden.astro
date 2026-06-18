@@ -1,0 +1,146 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import InfoBlock from '../components/InfoBlock.astro';
+
+const branches = ['Alle branches', 'Bouw', 'Retail', 'Horeca', 'Zakelijk'];
+
+// Later automatisch uit de ledenadministratie (REST-API).
+const leden = [
+  { initials: 'JdJ', bg: 'var(--magenta)', name: 'Jumbo de Jong', branche: 'Retail', tier: 'Connectie' },
+  { initials: 'DH', bg: 'var(--teal)', name: 'Dragt Houtkonstruktie', branche: 'Bouw', tier: 'Connectie' },
+  { initials: 'CI', bg: 'var(--oranje)', name: 'Cura ICT', branche: 'ICT & zakelijk', tier: 'Connectie' },
+  { initials: 'ZvI', bg: 'var(--rood)', name: 'Zaak van Interactie', branche: 'Communicatie', tier: 'Connectie' },
+  { initials: 'TBN', bg: 'var(--ink-500)', name: 'TBN Consultancy', branche: 'Advies', tier: 'Connectie' },
+  { initials: 'DM', bg: 'var(--teal-tekst)', name: 'De Markestee', branche: 'Horeca', tier: 'Kern' },
+  { initials: 'RO', bg: 'var(--magenta)', name: 'Rudolf Ophof', branche: 'Zakelijk', tier: 'Kern' },
+];
+---
+
+<Base title="Smoelenboek — Ondernemend Weststellingwerf" active="leden">
+  <PageHero
+    kicker="Smoelenboek"
+    title="180+ ondernemers die je wílt kennen"
+    lead="Van de bouw tot de horeca, van Wolvega tot Noordwolde. Zoek een collega, contact of leverancier binnen je eigen netwerk."
+    maxWidth={1100} />
+
+  {/* SEARCH + FILTERS (visueel) */}
+  <section class="wrap controls">
+    <div class="search">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--tekst-dim)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Zoek op naam of branche…</span>
+    </div>
+    <div class="chips">
+      {branches.map((b, i) => (
+        <span class:list={['chip', { active: i === 0 }]}>{b}</span>
+      ))}
+    </div>
+  </section>
+
+  {/* GRID */}
+  <section class="wrap grid-wrap">
+    <div class="grid">
+      {leden.map((l) => (
+        <div class="lid">
+          <div class="avatar" style={`background:${l.bg}`}>{l.initials}</div>
+          <div class="name">{l.name}</div>
+          <div class="branche">{l.branche}</div>
+          <span class:list={['tier', { connectie: l.tier === 'Connectie' }]}>{l.tier}</span>
+        </div>
+      ))}
+      <a href="/lidmaatschap" class="lid more">
+        <div class="more-num">+173</div>
+        <div class="more-sub">leden — en jij?</div>
+        <span class="more-link">Word lid →</span>
+      </a>
+    </div>
+  </section>
+
+  {/* INFO */}
+  <section class="wrap note">
+    <InfoBlock>
+      Dit smoelenboek wordt straks automatisch en realtime gevuld vanuit de ledenadministratie (via de REST-API) — altijd compleet en actueel, zonder handmatig bijwerken.
+    </InfoBlock>
+  </section>
+</Base>
+
+<style>
+  .wrap { max-width: 1100px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+
+  .controls { padding-top: 10px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .search {
+    flex: 1;
+    min-width: 260px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--wit);
+    border: 1.5px solid rgba(41, 35, 92, .14);
+    border-radius: var(--radius-pill);
+    padding: 12px 18px;
+  }
+  .search span { color: #9690AE; font-size: 15.5px; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    background: var(--wit);
+    border: 1px solid rgba(41, 35, 92, .14);
+    color: var(--ink-500);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 16px;
+    border-radius: var(--radius-pill);
+  }
+  .chip.active { background: var(--ink); color: #fff; font-weight: 700; border-color: transparent; }
+
+  .grid-wrap { padding-top: 24px; padding-bottom: 10px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .lid {
+    background: var(--wit);
+    border: 1px solid var(--rand);
+    border-radius: 18px;
+    padding: 24px;
+    text-align: center;
+  }
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 800;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .name { font-weight: 800; font-size: 16px; color: var(--ink); }
+  .branche { font-size: 13.5px; color: var(--tekst-dim); margin-bottom: 10px; }
+  .tier {
+    background: rgba(41, 35, 92, .07);
+    color: var(--ink-500);
+    font-weight: 700;
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+  }
+  .tier.connectie { background: rgba(149, 27, 129, .10); color: var(--magenta); }
+
+  .more {
+    background: rgba(198, 196, 213, .25);
+    border: 1px dashed rgba(41, 35, 92, .24);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .more-num { font-weight: 800; font-size: 26px; color: var(--ink); }
+  .more-sub { font-size: 13.5px; color: var(--tekst-dim); margin-top: 2px; }
+  .more-link { color: var(--magenta); font-weight: 700; font-size: 13.5px; margin-top: 8px; }
+
+  .note { padding-top: 22px; padding-bottom: 64px; }
+
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 400px) { .grid { grid-template-columns: 1fr; } }
+</style>

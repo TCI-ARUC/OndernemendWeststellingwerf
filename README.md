@@ -1,0 +1,98 @@
+# Website Ondernemend Weststellingwerf
+
+Nieuwe site van Ondernemend Weststellingwerf, gebouwd met **Astro** (statisch, snel,
+onderhoudbaar) volgens de design-handoff. Bedoeld om door meerdere mensen via pull
+requests bijgewerkt te worden.
+
+## Aan de slag
+
+```bash
+npm install
+npm run dev      # lokale dev-server op http://localhost:4321
+npm run build    # productiebuild naar ./dist
+npm run preview  # bekijk de productiebuild lokaal
+```
+
+## Structuur
+
+```
+src/
+  styles/tokens.css        # huisstijl-tokens (kleuren, radius, schaduw) + base-styles
+  layouts/Base.astro       # <head>, Mulish-fonts, tokens, header + footer, <slot/>
+  components/
+    SiteHeader.astro       # sticky header met active-prop
+    SiteFooter.astro       # donkere footer
+    KrachtCard.astro        EventCard.astro
+    NieuwsCard.astro        PrijsCard.astro
+    PageHero.astro          InfoBlock.astro
+  pages/
+    index.astro            over-ons.astro    lidmaatschap.astro
+    agenda.astro           leden.astro       nieuws.astro
+    fonds.astro            contact.astro
+public/img/                # afbeeldingen + logo
+```
+
+## Status
+
+- ✅ **Alle 8 pagina's** geïmplementeerd: Home, Over ons, Lidmaatschap, Agenda,
+  Leden (smoelenboek), Nieuws, Fonds, Contact.
+- ✅ Gedeelde `SiteHeader` + `SiteFooter` + `Base`-layout + design-tokens.
+- ✅ Herbruikbare componenten: `PageHero`, `InfoBlock`, `KrachtCard`, `EventCard`,
+  `NieuwsCard`, `PrijsCard`.
+- ✅ Nieuws & Agenda als **Markdown content collections** (`src/content/`).
+  Nieuws heeft artikel-detailpagina's (`/nieuws/<slug>`); homepage + overzichten
+  vullen zich automatisch uit de collecties.
+- ✅ **GitHub Actions-deploy** naar Pages (`.github/workflows/deploy.yml`),
+  eigen domein **ow.curaict.nl** via `public/CNAME`.
+
+## Content bewerken (zonder code)
+
+Nieuws en agenda zijn losse Markdown-bestanden:
+
+```
+src/content/nieuws/<slug>.md    # artikelen
+src/content/agenda/<slug>.md    # evenementen
+```
+
+Nieuw artikel = nieuw `.md`-bestand met frontmatter (`title`, `category`, `excerpt`,
+`pubDate`, optioneel `featured` en `image`). De huisstijlkleur per categorie wordt
+automatisch afgeleid (zie `src/lib/taxonomy.ts`) — geen kleurcodes nodig.
+
+## Deploy
+
+Elke push naar `main` bouwt en publiceert de site via GitHub Actions naar GitHub Pages.
+
+**Eenmalig instellen:**
+1. Repo → Settings → Pages → **Source: GitHub Actions**.
+2. DNS bij curaict.nl: een **CNAME-record** `ow` → `tci-aruc.github.io`.
+   (Het `public/CNAME`-bestand koppelt het domein aan de Pages-site.)
+3. In Settings → Pages het custom domain `ow.curaict.nl` invullen en
+   *Enforce HTTPS* aanzetten zodra het certificaat is uitgegeven.
+
+## Belangrijke aandachtspunten
+
+### Logo
+Het officiële logo kon **niet** uit de design-handoff worden opgehaald (de bron-PNG's
+zijn groter dan de 256 KiB-limiet van de design-koppeling en kwamen afgekapt binnen).
+Als tijdelijke stand-in staat er een schaalbare SVG-waaier in de huisstijlkleuren:
+`public/img/mark-ow.svg`. **Vervang deze door het echte logo** (volledige PNG/SVG)
+zodra dat beschikbaar is; header, footer en favicon verwijzen ernaar.
+
+### Foto's
+De hero en nieuwskaarten gebruiken nu placeholder-vlakken. Vervang ze door echte foto's
+van Weststellingwerver ondernemers (geen stock — expliciete eis uit het Plan van Eisen).
+
+### Formulieren
+Het nieuwsbrief-formulier toont nu een demo-bevestiging. Koppel het in productie aan
+**Laposta**. Inschrijven/inloggen linkt naar **ClubCollect** (zie de externe URL's hieronder).
+
+### Externe koppelingen
+- Ledenportaal (ClubCollect): `https://app.clubcollect.com/ma/0e1183ceb4f5c970bb0bb3080204adbabc8fe53c`
+- Stiekm Trots: `https://stiekmtrots.nl`
+- Nieuwsbrief: Laposta (nog te koppelen)
+
+> Controleer de ClubCollect-URL's met het echte account; in de handoff staan ze als voorbeeld.
+
+### Hosting
+In `astro.config.mjs` staat `site` op het verwachte domein. Voor GitHub Pages onder een
+sub-pad (`/<repo>/`) moet je daar ook `base: '/<repo>/'` toevoegen.

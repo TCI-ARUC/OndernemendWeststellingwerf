@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PrijsCard from '../components/PrijsCard.astro';
+
+const SIGNUP = 'https://app.clubcollect.com/signup/249679c4-b120-42ac-8221-ab1bd5cccc36';
+
+const kernFeatures = [
+  'Stemrecht in de vereniging',
+  'Collectieve belangenbehartiging',
+  'Eigen pagina op Stiekm Trots',
+  'Naamsvermelding op de website',
+  'Collectieve afvalinzameling',
+  'Tickets netwerkbijeenkomsten (€60 p.p.)',
+];
+const connectieFeatures = [
+  'Logo + link naar je website op de OW-site',
+  'Toegang netwerkbijeenkomsten (1 pers.)',
+  '2× gratis introducé per jaar',
+  'Artikel in nieuwsbrief & op de website',
+  'Vlog/blog op Stiekm Trots & OW',
+  '20% korting op advertenties in het Magazine',
+  'Bewegwijzering & beveiliging bedrijventerreinen',
+];
+
+const stappen = [
+  { n: '1', title: 'Vul het formulier in', text: 'Kies je pakket en vul je bedrijfsgegevens in. Duurt twee minuten.' },
+  { n: '2', title: 'Bevestig & betaal', text: 'Contributie loopt via automatische incasso. Geen gedoe achteraf.' },
+  { n: '3', title: 'Welkom!', text: 'Je staat in het smoelenboek en bent welkom op alle bijeenkomsten.' },
+];
+---
+
+<Base title="Lidmaatschap — Ondernemend Weststellingwerf" active="lidmaatschap">
+  <PageHero
+    kicker="Lidmaatschap"
+    title="Kies wat bij jouw bedrijf past"
+    lead="Twee lidmaatschappen, één doel: samen sterker ondernemen. Bedragen per jaar, exclusief btw."
+    center maxWidth={880} />
+
+  {/* PRICING */}
+  <section class="prijs-grid">
+    <PrijsCard
+      tier="Kern" price="€50" blurb="Iedereen kan lid worden en meteen meedoen."
+      ctaLabel="Word kernlid" ctaHref={SIGNUP} ctaExternal features={kernFeatures} />
+    <PrijsCard
+      tier="Connectie" price="€325" blurb="Lid als bedrijf — maximaal zichtbaar en verbonden."
+      ctaLabel="Word connectielid" ctaHref={SIGNUP} ctaExternal featured
+      featuresIntro="Alles uit Kern, plus:" features={connectieFeatures} />
+  </section>
+
+  {/* STAPPEN */}
+  <section class="wrap-920 pad">
+    <h2 class="center-h2">Zo word je lid</h2>
+    <div class="stappen">
+      {stappen.map((s) => (
+        <div class="card stap">
+          <div class="num">{s.n}</div>
+          <h3>{s.title}</h3>
+          <p>{s.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* CTA */}
+  <section class="wrap-920 cta-wrap">
+    <div class="card cta">
+      <h2>Twijfel je nog?</h2>
+      <p>Loop een keer binnen bij een borrel of stel je vraag. We denken graag met je mee.</p>
+      <div class="cta-row">
+        <a href={SIGNUP} target="_blank" rel="noopener" class="btn-primary">Direct inschrijven</a>
+        <a href="/contact" class="btn-ghost">Stel een vraag</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prijs-grid { max-width: 920px; margin: 0 auto; padding: 18px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .wrap-920 { max-width: 920px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  .pad { padding-top: 38px; padding-bottom: 38px; }
+  .card { background: var(--wit); border: 1px solid var(--rand); border-radius: 22px; }
+
+  .center-h2 { font-weight: 800; font-size: 28px; letter-spacing: -.02em; margin: 0 0 22px; color: var(--ink); text-align: center; }
+  .stappen { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .stap { border-radius: 18px; padding: 26px; }
+  .stap .num { width: 38px; height: 38px; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+  .stap h3 { font-weight: 800; font-size: 18px; margin: 0 0 6px; color: var(--ink); }
+  .stap p { font-size: 14.5px; line-height: 1.55; color: var(--tekst); margin: 0; }
+
+  .cta-wrap { padding: 14px 24px 64px; }
+  .cta { padding: 40px; text-align: center; border-radius: 22px; }
+  .cta h2 { font-weight: 800; font-size: 26px; margin: 0 0 10px; color: var(--ink); }
+  .cta p { font-size: 16.5px; color: var(--tekst); margin: 0 auto 22px; max-width: 480px; }
+  .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    text-decoration: none;
+    background: var(--magenta);
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px 26px;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--schaduw-magenta);
+  }
+  .btn-ghost {
+    text-decoration: none;
+    background: var(--wit);
+    color: var(--ink);
+    border: 1.5px solid rgba(41, 35, 92, .16);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 13px 24px;
+    border-radius: var(--radius-pill);
+  }
+
+  @media (max-width: 760px) {
+    .prijs-grid { grid-template-columns: 1fr; }
+    .stappen { grid-template-columns: 1fr; }
+  }
+</style>

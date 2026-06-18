@@ -1,0 +1,127 @@
+---
+// Prijskaart voor het lidmaatschap. `featured` geeft de magenta-uitgelichte variant.
+interface Props {
+  tier: string;
+  price: string;
+  period?: string;
+  blurb: string;
+  ctaLabel: string;
+  ctaHref: string;
+  featured?: boolean;
+  featuresIntro?: string;
+  features: string[];
+  ctaExternal?: boolean;  // open CTA in nieuw tabblad (bijv. ClubCollect)
+}
+const {
+  tier,
+  price,
+  period = '/ jaar',
+  blurb,
+  ctaLabel,
+  ctaHref,
+  featured = false,
+  featuresIntro,
+  features,
+  ctaExternal = false,
+} = Astro.props;
+const check = featured ? 'var(--magenta)' : 'var(--teal)';
+const ctaAttrs = ctaExternal ? { target: '_blank', rel: 'noopener' } : {};
+---
+
+<div class:list={['prijs', { featured }]}>
+  {featured && <span class="ribbon">Meest gekozen</span>}
+  <div class="tier" style={featured ? 'color:var(--magenta)' : ''}>{tier}</div>
+  <div class="price">
+    <span class="amount">{price}</span>
+    <span class="period">{period}</span>
+  </div>
+  <p class="blurb">{blurb}</p>
+  <a href={ctaHref} class:list={['cta', { primary: featured }]} {...ctaAttrs}>{ctaLabel}</a>
+  {featuresIntro && <div class="intro">{featuresIntro}</div>}
+  <ul class="features">
+    {features.map((f) => (
+      <li>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={check} stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        {f}
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .prijs {
+    background: var(--wit);
+    border: 1px solid rgba(41, 35, 92, .12);
+    border-radius: var(--radius-card-lg);
+    padding: 34px;
+    position: relative;
+  }
+  .prijs.featured {
+    border: 2px solid var(--magenta);
+    box-shadow: 0 24px 56px -28px rgba(149, 27, 129, .5);
+  }
+  .ribbon {
+    position: absolute;
+    top: -13px;
+    left: 34px;
+    background: var(--magenta);
+    color: #fff;
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: .04em;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+  }
+  .tier {
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink-500);
+    margin-bottom: 6px;
+  }
+  .price { display: flex; align-items: baseline; gap: 7px; margin-bottom: 6px; }
+  .amount { font-weight: 800; font-size: 46px; color: var(--ink); line-height: 1; }
+  .period { font-size: 16px; color: var(--tekst-dim); font-weight: 600; }
+  .blurb { font-size: 15px; color: var(--tekst-dim); margin: 0 0 22px; }
+  .cta {
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    background: var(--wit);
+    color: var(--ink);
+    border: 1.5px solid rgba(41, 35, 92, .18);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 13px;
+    border-radius: var(--radius-veld);
+    margin-bottom: 24px;
+  }
+  .cta.primary {
+    background: var(--magenta);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 10px 24px -8px rgba(149, 27, 129, .6);
+  }
+  .intro {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--tekst-dim);
+    margin-bottom: 12px;
+  }
+  .features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .features li {
+    display: flex;
+    gap: 11px;
+    font-size: 15px;
+    color: var(--ink-500);
+  }
+  .features svg { flex: none; margin-top: 1px; }
+</style>

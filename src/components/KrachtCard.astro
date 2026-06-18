@@ -1,0 +1,82 @@
+---
+// Kaart voor een van de "vier krachten". Het icoon komt via de `icon`-slot.
+interface Props {
+  accent: string;        // kleur bovenrand + icoonkleur
+  iconBg: string;        // achtergrond icoonchip
+  iconColor: string;     // icoonkleur (donkerder voor leesbaarheid)
+  title: string;
+  titleExtra?: string;   // optioneel cursief deel achter de titel
+  text: string;
+  linkLabel: string;
+  linkColor: string;
+  href: string;
+  badge?: string;        // optioneel label rechtsboven
+}
+const { accent, iconBg, iconColor, title, titleExtra, text, linkLabel, linkColor, href, badge } = Astro.props;
+---
+
+<div class="kracht" data-card>
+  <div class="topbar" style={`background:${accent}`}></div>
+  <div class="head">
+    <div class="icon" style={`background:${iconBg};color:${iconColor}`}>
+      <slot name="icon" />
+    </div>
+    {badge && <span class="badge" style={`background:${iconBg};color:${accent}`}>{badge}</span>}
+  </div>
+  <h3>{title}{titleExtra && <span class="extra"> {titleExtra}</span>}</h3>
+  <p>{text}</p>
+  <a href={href} class="more" style={`color:${linkColor}`}>
+    {linkLabel}
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</div>
+
+<style>
+  .kracht {
+    background: var(--wit);
+    border: 1px solid var(--rand);
+    border-radius: 20px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; }
+  .icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .badge {
+    font-weight: 700;
+    font-size: 12px;
+    padding: 5px 11px;
+    border-radius: var(--radius-pill);
+    letter-spacing: .02em;
+  }
+  h3 {
+    font-weight: 700;
+    font-size: 22px;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .extra { font-style: italic; font-weight: 500; }
+  p {
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--tekst);
+    margin: 0 0 16px;
+  }
+  .more {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+</style>

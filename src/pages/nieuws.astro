@@ -1,0 +1,99 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import NieuwsCard from '../components/NieuwsCard.astro';
+import { nieuwsKleur } from '../lib/taxonomy';
+
+const alle = (await getCollection('nieuws')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const featured = alle.find((a) => a.data.featured) ?? alle[0];
+const rest = alle.filter((a) => a.id !== featured.id);
+---
+
+<Base title="Nieuws — Ondernemend Weststellingwerf" active="nieuws">
+  <PageHero
+    kicker="Nieuws"
+    title="Wat er speelt in de regio"
+    lead="Terugblikken, kansen voor leden en het laatste nieuws uit Ondernemend Weststellingwerf."
+    maxWidth={1100} />
+
+  {/* FEATURED */}
+  <section class="wrap feat-wrap">
+    <a href={`/nieuws/${featured.id}`} class="feat">
+      {featured.data.image
+        ? <img src={featured.data.image} alt="" class="feat-photo-img" />
+        : <div class="feat-photo" aria-hidden="true">Foto</div>}
+      <div class="feat-body">
+        <span class="cat" style={`color:${nieuwsKleur(featured.data.category)}`}>{featured.data.category} · Uitgelicht</span>
+        <h2>{featured.data.title}</h2>
+        <p>{featured.data.excerpt}</p>
+        <span class="read">Lees verder
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </div>
+    </a>
+  </section>
+
+  {/* GRID */}
+  <section class="wrap grid-wrap">
+    <div class="grid">
+      {rest.map((a) => (
+        <NieuwsCard
+          href={`/nieuws/${a.id}`}
+          category={a.data.category}
+          categoryColor={nieuwsKleur(a.data.category)}
+          title={a.data.title}
+          text={a.data.excerpt}
+          image={a.data.image} />
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .wrap { max-width: 1100px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+
+  .feat-wrap { padding-top: 18px; padding-bottom: 18px; }
+  .feat {
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    background: var(--wit);
+    border: 1px solid var(--rand);
+    border-radius: 22px;
+    overflow: hidden;
+  }
+  .feat-photo, .feat-photo-img { min-height: 340px; width: 100%; }
+  .feat-photo-img { object-fit: cover; display: block; }
+  .feat-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--lila);
+    color: var(--ink-500);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .feat-body { padding: 38px; display: flex; flex-direction: column; justify-content: center; }
+  .cat { font-weight: 700; font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 12px; }
+  .feat-body h2 { font-weight: 800; font-size: 30px; line-height: 1.12; letter-spacing: -.02em; margin: 0 0 12px; color: var(--ink); }
+  .feat-body p { font-size: 16px; line-height: 1.6; color: var(--tekst); margin: 0 0 18px; }
+  .read { font-weight: 700; font-size: 15px; color: var(--magenta); display: inline-flex; align-items: center; gap: 6px; }
+
+  .grid-wrap { padding-top: 18px; padding-bottom: 64px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+  @media (max-width: 820px) {
+    .feat { grid-template-columns: 1fr; }
+    .feat-photo, .feat-photo-img { min-height: 220px; }
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .grid { grid-template-columns: 1fr; }
+    .feat-body { padding: 28px; }
+  }
+</style>

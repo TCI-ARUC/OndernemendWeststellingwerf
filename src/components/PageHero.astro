@@ -1,0 +1,72 @@
+---
+// Gedeelde pagina-hero: kicker + titel + lead. Optioneel gecentreerd en/of met waaier-accent.
+interface Props {
+  kicker?: string;
+  title: string;
+  lead?: string;
+  center?: boolean;
+  fan?: boolean;        // subtiele waaier rechtsboven
+  maxWidth?: number;    // breedte van de content-container
+}
+const { kicker, title, lead, center = false, fan = false, maxWidth = 1000 } = Astro.props;
+---
+
+<section class:list={['page-hero', { fan }]}>
+  {fan && <div class="fan" aria-hidden="true"></div>}
+  <div class:list={['inner', { center }]} style={`max-width:${maxWidth}px`}>
+    {kicker && <div class="kicker">{kicker}</div>}
+    <h1><slot name="title">{title}</slot></h1>
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-hero { position: relative; overflow: hidden; }
+  .inner {
+    margin: 0 auto;
+    padding: 70px 24px 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .inner.center { text-align: center; }
+  .inner.center .lead { margin-left: auto; margin-right: auto; }
+  .kicker {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-weight: 800;
+    font-size: 50px;
+    line-height: 1.05;
+    letter-spacing: -.025em;
+    margin: 0 0 16px;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .lead {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--tekst);
+    margin: 0;
+    max-width: 640px;
+  }
+  .fan {
+    position: absolute;
+    right: -80px;
+    top: -120px;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: conic-gradient(from 210deg at 70% 50%, #29235C 0 7deg, transparent 7deg 14deg, #951B81 14deg 21deg, transparent 21deg 28deg, #C8202A 28deg 35deg, transparent 35deg 42deg, #F09000 42deg 49deg, transparent 49deg 56deg, #16A892 56deg 63deg, transparent 63deg 90deg);
+    opacity: .16;
+    mask: radial-gradient(circle at 70% 50%, transparent 40%, #000 41%);
+  }
+  @media (max-width: 520px) {
+    h1 { font-size: 38px; }
+  }
+</style>

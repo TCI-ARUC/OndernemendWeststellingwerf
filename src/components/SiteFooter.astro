@@ -1,0 +1,156 @@
+---
+// Gedeelde donkere footer.
+const LEDENPORTAAL = 'https://app.clubcollect.com/ma/0e1183ceb4f5c970bb0bb3080204adbabc8fe53c';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="ow-container">
+    <div class="cols">
+      <div>
+        <div class="brand">
+          <img src="/img/mark-ow.svg" alt="" width="40" height="40" class="brand-mark" />
+          <span class="brand-words">
+            <span>Ondernemend</span>
+            <span class="brand-l2">Weststellingwerf</span>
+          </span>
+        </div>
+        <p class="blurb">Van, voor en door ondernemers. Samen bouwen we aan een sterk en vitaal Weststellingwerf.</p>
+        <a href="https://stiekmtrots.nl" target="_blank" rel="noopener" class="stiekm">
+          Stiekm Trots op Weststellingwerf
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+      </div>
+
+      <div>
+        <div class="col-title">Vereniging</div>
+        <ul class="links">
+          <li><a href="/over-ons">Over ons</a></li>
+          <li><a href="/leden">Smoelenboek</a></li>
+          <li><a href="/nieuws">Nieuws</a></li>
+          <li><a href="/fonds">Stimuleringsfonds</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="col-title">Doe mee</div>
+        <ul class="links">
+          <li><a href="/lidmaatschap">Word lid</a></li>
+          <li><a href="/agenda">Agenda</a></li>
+          <li><a href={LEDENPORTAAL} target="_blank" rel="noopener">Ledenportaal</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="col-title">Contact</div>
+        <ul class="links plain">
+          <li>Het Ondernemershuis</li>
+          <li>Wolvega</li>
+          <li><a href="mailto:info@ondernemendweststellingwerf.nl" class="email">info@ondernemendweststellingwerf.nl</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <span>© {year} Ondernemend Weststellingwerf. Alle rechten voorbehouden.</span>
+      <div class="bottom-links">
+        <a href="/contact">Contact</a>
+        <a href="/privacy">Privacybeleid</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink-900);
+    color: #fff;
+  }
+  .site-footer .ow-container {
+    padding-top: 56px;
+    padding-bottom: 28px;
+  }
+  .cols {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid rgba(255, 255, 255, .12);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 16px;
+  }
+  .brand-mark { display: block; height: 40px; width: auto; }
+  .brand-words {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.02;
+    font-weight: 800;
+    font-size: 18px;
+  }
+  .brand-l2 { font-weight: 600; color: var(--lila); }
+  .blurb {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #B7AEDB;
+    margin: 0 0 18px;
+    max-width: 300px;
+  }
+  .stiekm {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    background: rgba(255, 255, 255, .08);
+    padding: 9px 15px;
+    border-radius: var(--radius-pill);
+  }
+  .stiekm:hover { background: rgba(255, 255, 255, .14); }
+
+  .col-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    font-size: 14.5px;
+  }
+  .links a { text-decoration: none; color: #B7AEDB; }
+  .links a:hover { color: #fff; }
+  .links.plain { color: #B7AEDB; }
+  .links .email { color: #fff; }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-top: 24px;
+    flex-wrap: wrap;
+    font-size: 13.5px;
+    color: #8C82B5;
+  }
+  .bottom-links { display: flex; gap: 22px; }
+  .bottom-links a { text-decoration: none; color: #8C82B5; }
+  .bottom-links a:hover { color: #B7AEDB; }
+
+  @media (max-width: 760px) {
+    .cols { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 460px) {
+    .cols { grid-template-columns: 1fr; }
+  }
+</style>

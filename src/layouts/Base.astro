@@ -1,0 +1,48 @@
+---
+import '@fontsource/mulish/400.css';
+import '@fontsource/mulish/500.css';
+import '@fontsource/mulish/600.css';
+import '@fontsource/mulish/700.css';
+import '@fontsource/mulish/800.css';
+import '@fontsource/mulish/900.css';
+import '../styles/tokens.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  active?: 'home' | 'overons' | 'agenda' | 'leden' | 'lidmaatschap' | 'nieuws' | 'fonds';
+}
+
+const {
+  title,
+  description = 'Ondernemend Weststellingwerf — netwerk, regiomarketing, belangenbehartiging en stimuleringsfonds. Van, voor en door ondernemers.',
+  active = 'home',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/img/mark-ow.svg" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <SiteHeader active={active} />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
+
+<style>
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+</style>

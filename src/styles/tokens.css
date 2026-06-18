@@ -1,0 +1,91 @@
+:root {
+  /* Indigo / ink */
+  --ink: #29235C;
+  --ink-500: #4A4488;
+  --ink-900: #1C1745;
+
+  /* Accenten */
+  --magenta: #951B81;
+  --lila: #C6C4D5;
+  --rood: #C8202A;
+  --oranje: #F09000;
+  --oranje-tekst: #D67E00;
+  --teal: #16A892;
+  --teal-tekst: #0E8E7B;
+
+  /* Vlakken */
+  --paper: #FAF8F3;
+  --wit: #FFFFFF;
+
+  /* Tekst */
+  --tekst: #52496E;
+  --tekst-dim: #6B6488;
+
+  /* Randen, radius, schaduw */
+  --rand: rgba(41, 35, 92, .09);
+  --radius-card: 18px;
+  --radius-card-lg: 22px;
+  --radius-veld: 12px;
+  --radius-pill: 999px;
+  --schaduw-card: 0 24px 56px -28px rgba(41, 35, 92, .4);
+  --schaduw-magenta: 0 10px 26px -8px rgba(149, 27, 129, .6);
+
+  /* Layout */
+  --maxw: 1200px;
+  --font: 'Mulish', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--magenta);
+  color: #fff;
+}
+
+a {
+  color: inherit;
+}
+
+@keyframes owrise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Gedeelde container */
+.ow-container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Subtiel lift-effect op kaarten (data-card) */
+[data-card] {
+  transition: transform .2s, box-shadow .2s;
+}
+
+[data-card]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--schaduw-card);
+}

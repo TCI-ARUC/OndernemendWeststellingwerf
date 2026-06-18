@@ -1,0 +1,218 @@
+---
+import Base from '../layouts/Base.astro';
+
+const werkwijze = [
+  { bg: 'rgba(200,32,42,.10)', color: 'var(--rood)', title: 'Renteloos lenen', text: 'Een lening zonder rente, zodat je idee de ruimte krijgt om te groeien.', icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>' },
+  { bg: 'rgba(240,144,0,.13)', color: 'var(--oranje-tekst)', title: 'Voor de regio', text: 'Ideeën die Weststellingwerf sterker, leuker of duurzamer maken.', icon: '<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>' },
+  { bg: 'rgba(22,168,146,.12)', color: 'var(--teal-tekst)', title: 'Laagdrempelig', text: 'Geen dik dossier. Een helder plan en de Quick Scan zijn het startpunt.', icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' },
+];
+
+const scanStappen = [
+  'Vertel over je idee',
+  'Beantwoord 5 korte vragen',
+  'Direct een indicatie',
+];
+---
+
+<Base title="Stimuleringsfonds Ondernemend Veuruut — Ondernemend Weststellingwerf" active="fonds">
+  {/* HERO met rood-accent waaier */}
+  <section class="hero">
+    <div class="hero-fan" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="badge">Lancering eind 2026</div>
+      <h1>Stimuleringsfonds <span class="accent">Ondernemend Veuruut</span></h1>
+      <p class="lead">Een renteloze lening voor jouw innovatieve idee. Bedoeld om ondernemers in Weststellingwerf te helpen vooruit — laagdrempelig en dichtbij.</p>
+    </div>
+  </section>
+
+  {/* QUICK SCAN TEASER */}
+  <section class="wrap scan-wrap">
+    <div class="scan">
+      <div class="scan-inner">
+        <div>
+          <h2>Doe straks de Quick Scan</h2>
+          <p>Check in één minuut of jouw idee in aanmerking komt. We vragen je naar het plan, de impact voor de regio en wat je nodig hebt.</p>
+          <span class="soon">Binnenkort beschikbaar</span>
+        </div>
+        <div class="scan-steps">
+          {scanStappen.map((s, i) => (
+            <div class="scan-step"><span class="n">{i + 1}</span>{s}</div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* HOE WERKT HET */}
+  <section class="wrap how-wrap">
+    <h2 class="center-h2">Hoe het werkt</h2>
+    <div class="how">
+      {werkwijze.map((w) => (
+        <div class="card">
+          <div class="icon" style={`background:${w.bg};color:${w.color}`}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={w.icon} />
+          </div>
+          <h3>{w.title}</h3>
+          <p>{w.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* NOTIFY */}
+  <section class="wrap notify-wrap">
+    <div class="card notify">
+      <h2>Blijf op de hoogte van de lancering</h2>
+      <p>Laat je e-mail achter, dan laten we het weten zodra de Quick Scan en het fonds opengaan.</p>
+      {/* In productie koppelen aan Laposta of een e-mail-endpoint. */}
+      <form class="notify-form" id="notify">
+        <input type="email" name="email" required placeholder="je@bedrijf.nl" />
+        <button type="submit">Hou me op de hoogte</button>
+      </form>
+      <p class="notify-msg" id="notify-msg" hidden></p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('notify') as HTMLFormElement | null;
+  const msg = document.getElementById('notify-msg');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.reset();
+    if (msg) {
+      msg.textContent = 'Bedankt! Je hoort van ons zodra het fonds opengaat.';
+      msg.hidden = false;
+    }
+  });
+</script>
+
+<style>
+  .wrap { max-width: 1000px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+
+  .hero { position: relative; overflow: hidden; }
+  .hero-fan {
+    position: absolute;
+    right: -90px;
+    top: -120px;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: conic-gradient(from 200deg, #C8202A 0 8deg, transparent 8deg 16deg, #F09000 16deg 24deg, transparent 24deg 32deg, #951B81 32deg 40deg, transparent 40deg 90deg);
+    opacity: .16;
+    mask: radial-gradient(circle, transparent 40%, #000 41%);
+  }
+  .hero-inner { max-width: 820px; margin: 0 auto; padding: 70px 24px 26px; position: relative; z-index: 1; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200, 32, 42, .10);
+    color: var(--rood);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-weight: 800;
+    font-size: 52px;
+    line-height: 1.04;
+    letter-spacing: -.025em;
+    margin: 0 0 18px;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .hero h1 .accent { color: var(--rood); }
+  .hero .lead { font-size: 20px; line-height: 1.55; color: var(--tekst); margin: 0; max-width: 640px; }
+
+  .scan-wrap { padding-top: 24px; padding-bottom: 24px; }
+  .scan {
+    background: linear-gradient(120deg, #C8202A, #951B81 90%);
+    border-radius: 24px;
+    padding: 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .scan-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.2fr 1fr; gap: 36px; align-items: center; }
+  .scan h2 { font-weight: 800; font-size: 30px; letter-spacing: -.02em; margin: 0 0 12px; color: #fff; }
+  .scan p { font-size: 16.5px; line-height: 1.55; color: #FBE3E5; margin: 0 0 22px; }
+  .soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: rgba(255, 255, 255, .16);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 13px 22px;
+    border-radius: var(--radius-pill);
+  }
+  .scan-steps {
+    background: rgba(255, 255, 255, .10);
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .scan-step { display: flex; align-items: center; gap: 11px; color: #fff; font-size: 15px; }
+  .scan-step .n {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    flex: none;
+  }
+
+  .how-wrap { padding-top: 34px; padding-bottom: 10px; }
+  .center-h2 { font-weight: 800; font-size: 30px; letter-spacing: -.02em; margin: 0 0 22px; color: var(--ink); text-align: center; }
+  .how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card { background: var(--wit); border: 1px solid var(--rand); border-radius: 18px; padding: 28px; }
+  .icon { width: 48px; height: 48px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+  .how h3 { font-weight: 800; font-size: 19px; margin: 0 0 7px; color: var(--ink); }
+  .how p { font-size: 15px; line-height: 1.55; color: var(--tekst); margin: 0; }
+
+  .notify-wrap { padding: 34px 24px 64px; }
+  .notify { border-radius: 22px; padding: 40px; text-align: center; }
+  .notify h2 { font-weight: 800; font-size: 26px; margin: 0 0 10px; color: var(--ink); }
+  .notify > p { font-size: 16.5px; color: var(--tekst); margin: 0 auto 22px; max-width: 520px; }
+  .notify-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto; }
+  .notify-form input {
+    flex: 1;
+    min-width: 220px;
+    border: 1.5px solid rgba(41, 35, 92, .16);
+    border-radius: var(--radius-veld);
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--paper);
+  }
+  .notify-form button {
+    border: none;
+    cursor: pointer;
+    background: var(--rood);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15.5px;
+    padding: 14px 24px;
+    border-radius: var(--radius-veld);
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  .notify-msg { color: var(--ink); font-weight: 600; font-size: 14.5px; margin: 14px 0 0; }
+
+  @media (max-width: 760px) {
+    .hero h1 { font-size: 40px; }
+    .scan-inner { grid-template-columns: 1fr; gap: 24px; }
+    .how { grid-template-columns: 1fr; }
+  }
+</style>

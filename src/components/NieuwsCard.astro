@@ -1,0 +1,64 @@
+---
+// Nieuwskaart met fotoslot + gekleurd categorielabel.
+// `image` is optioneel; ontbreekt die, dan tonen we een placeholder-vlak.
+interface Props {
+  href: string;
+  category: string;
+  categoryColor: string;
+  title: string;
+  text: string;
+  image?: string;
+  imageAlt?: string;
+}
+const { href, category, categoryColor, title, text, image, imageAlt = '' } = Astro.props;
+---
+
+<a href={href} class="nieuws" data-card>
+  {image
+    ? <img src={image} alt={imageAlt} class="photo" loading="lazy" />
+    : <div class="photo placeholder" aria-hidden="true">Foto</div>}
+  <div class="body">
+    <span class="cat" style={`color:${categoryColor}`}>{category}</span>
+    <h3>{title}</h3>
+    <p>{text}</p>
+  </div>
+</a>
+
+<style>
+  .nieuws {
+    text-decoration: none;
+    background: var(--wit);
+    border: 1px solid var(--rand);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .photo { display: block; width: 100%; height: 180px; object-fit: cover; }
+  .placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--lila);
+    color: var(--ink-500);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .body { padding: 22px; }
+  .cat {
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  h3 {
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 1.2;
+    margin: 8px 0 8px;
+    color: var(--ink);
+  }
+  p { font-size: 14.5px; color: var(--tekst-dim); margin: 0; line-height: 1.5; }
+</style>

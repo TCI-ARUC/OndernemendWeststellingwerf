@@ -1,0 +1,652 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import KrachtCard from '../components/KrachtCard.astro';
+import EventCard from '../components/EventCard.astro';
+import NieuwsCard from '../components/NieuwsCard.astro';
+import PrijsCard from '../components/PrijsCard.astro';
+import { agendaStijl, nieuwsKleur, dag, maandKort } from '../lib/taxonomy';
+
+// --- Agenda: de eerstvolgende drie items uit de collectie ---
+const events = (await getCollection('agenda'))
+  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf())
+  .slice(0, 3)
+  .map((e) => {
+    const stijl = agendaStijl(e.data.category);
+    return {
+      day: dag(e.data.date),
+      month: maandKort(e.data.date),
+      label: e.data.category,
+      labelBg: stijl.labelBg,
+      labelColor: stijl.labelColor,
+      title: e.data.title,
+      text: e.data.excerpt,
+      ctaLabel: e.data.signup ? 'Aanmelden' : 'Meer info',
+      ctaHref: '/agenda',
+      ctaPrimary: Boolean(e.data.signup),
+    };
+  });
+
+// --- Smoelenboek-teaser (later automatisch uit de ledenadministratie) ---
+const leden = [
+  { initials: 'JdJ', bg: 'var(--magenta)', name: 'Jumbo de Jong', branche: 'Retail' },
+  { initials: 'DH', bg: 'var(--teal)', name: 'Dragt Houtkonstruktie', branche: 'Bouw' },
+  { initials: 'CI', bg: 'var(--oranje)', name: 'Cura ICT', branche: 'ICT' },
+  { initials: 'ZvI', bg: 'var(--rood)', name: 'Zaak van Interactie', branche: 'Communicatie' },
+  { initials: 'TBN', bg: 'var(--ink-500)', name: 'TBN Consultancy', branche: 'Advies' },
+];
+
+// --- Lidmaatschap ---
+const kernFeatures = [
+  'Stemrecht in de vereniging',
+  'Collectieve belangenbehartiging',
+  'Eigen pagina op Stiekm Trots',
+  'Naamsvermelding op de website',
+  'Collectieve afvalinzameling',
+  'Tickets netwerkbijeenkomsten (€60 p.p.)',
+];
+const connectieFeatures = [
+  'Logo + link naar je website op de OW-site',
+  'Toegang netwerkbijeenkomsten (1 pers.)',
+  '2× gratis introducé per jaar',
+  'Artikel in nieuwsbrief & op de website',
+  'Vlog/blog op Stiekm Trots & OW',
+  '20% korting op advertenties in het Magazine',
+  'Bewegwijzering & beveiliging bedrijventerreinen',
+];
+
+// --- Nieuws: de drie meest recente artikelen uit de collectie ---
+const nieuws = (await getCollection('nieuws'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3)
+  .map((a) => ({
+    href: `/nieuws/${a.id}`,
+    category: a.data.category,
+    categoryColor: nieuwsKleur(a.data.category),
+    title: a.data.title,
+    text: a.data.excerpt,
+    image: a.data.image,
+  }));
+---
+
+<Base title="Ondernemend Weststellingwerf — waar ondernemers samenkomen" active="home">
+  {/* ===== HERO ===== */}
+  <section id="top">
+    <div class="ow-container hero">
+      <div class="hero-copy">
+        <div class="badge">
+          <span class="dots">
+            <span style="background:var(--magenta)"></span>
+            <span style="background:var(--oranje)"></span>
+            <span style="background:var(--teal)"></span>
+          </span>
+          Van, voor en door ondernemers
+        </div>
+        <h1>Waar ondernemend Weststellingwerf <span class="accent">samenkomt.</span></h1>
+        <p class="lead">Netwerk, regiomarketing, belangenbehartiging én economische groei — gebundeld in één sterke club. Samen bouwen we aan een vitaal Weststellingwerf, het meest onafhankelijke stukje Friesland.</p>
+        <div class="hero-cta">
+          <a href="/lidmaatschap" class="btn-primary">Word lid — vanaf €50
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="#krachten" class="btn-ghost">Wat we doen</a>
+        </div>
+        <div class="stats">
+          <div><div class="num">180+</div><div class="lbl">leden &amp; groeiend</div></div>
+          <div class="divider"></div>
+          <div><div class="num">2018</div><div class="lbl">samen sterker sindsdien</div></div>
+          <div class="divider"></div>
+          <div><div class="num">4</div><div class="lbl">krachten, één club</div></div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="fan" aria-hidden="true"></div>
+        <div class="photo">
+          {/* Vervang dit vlak door een echte <img> van Weststellingwerver ondernemers (geen stock). */}
+          <div class="photo-slot">Foto van échte Weststellingwerver ondernemers</div>
+        </div>
+        <div class="chip">
+          <div class="chip-date">
+            <span class="d">24</span><span class="m">jun</span>
+          </div>
+          <div>
+            <div class="chip-kicker">Volgende borrel</div>
+            <div class="chip-title">Haringparty</div>
+            <div class="chip-sub">Aanmelden in één klik</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ===== VIER KRACHTEN ===== */}
+  <section id="krachten" class="ow-container block">
+    <div class="intro-narrow">
+      <div class="kicker">Eén bijzondere club</div>
+      <h2>Vier krachten, gebundeld voor jou</h2>
+      <p>We zijn netwerk én winkeliersvereniging, aanjager én belangenbehartiger — een mini-MKB Nederland voor de regio. Zo werkt dat in jouw voordeel.</p>
+    </div>
+    <div class="krachten-grid">
+      <KrachtCard
+        accent="var(--magenta)" iconBg="rgba(149,27,129,.10)" iconColor="var(--magenta)"
+        title="Netwerk & agenda"
+        text="Ontmoet, spar en groei. Een vlotte agenda, in één klik aanmelden voor bijeenkomsten en een smoelenboek dat je écht verder helpt."
+        linkLabel="Bekijk de agenda" linkColor="var(--magenta)" href="/agenda">
+        <svg slot="icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </KrachtCard>
+
+      <KrachtCard
+        accent="var(--oranje)" iconBg="rgba(240,144,0,.13)" iconColor="var(--oranje-tekst)"
+        title="Regiomarketing & aanjagen"
+        text="Samen zetten we Weststellingwerf op de kaart. Gezamenlijke acties voor de winkelstraten en sterke, vitale bedrijventerreinen."
+        linkLabel="Zie wat er speelt" linkColor="var(--oranje-tekst)" href="/nieuws">
+        <svg slot="icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+      </KrachtCard>
+
+      <KrachtCard
+        accent="var(--teal)" iconBg="rgba(22,168,146,.12)" iconColor="var(--teal-tekst)"
+        title="Belangenbehartiging"
+        text="Eén stevige stem richting gemeente en politiek. Van bereikbaarheid tot lokale regels — we behartigen jouw belang aan de juiste tafels."
+        linkLabel="Ons partnerschap" linkColor="var(--teal-tekst)" href="/over-ons">
+        <svg slot="icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </KrachtCard>
+
+      <KrachtCard
+        accent="var(--rood)" iconBg="rgba(200,32,42,.10)" iconColor="var(--rood)"
+        title="Stimuleringsfonds" titleExtra="Ondernemend Veuruut" badge="Eind 2026"
+        text="Een renteloze lening voor jouw innovatieve idee. Straks check je in één minuut of je in aanmerking komt."
+        linkLabel="Hou het in de gaten" linkColor="var(--rood)" href="/fonds">
+        <svg slot="icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </KrachtCard>
+    </div>
+  </section>
+
+  {/* ===== AGENDA ===== */}
+  <section id="agenda" class="ow-container block">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Binnenkort</div>
+        <h2 class="h2-sm">Zie je bij de volgende bijeenkomst?</h2>
+      </div>
+      <a href="/agenda" class="pill-link">Hele agenda
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="grid-3">
+      {events.map((e) => <EventCard {...e} />)}
+    </div>
+  </section>
+
+  {/* ===== SMOELENBOEK / LEDEN ===== */}
+  <section id="leden" class="ow-container block">
+    <div class="smoel">
+      <div class="smoel-fan" aria-hidden="true"></div>
+      <div class="smoel-inner">
+        <div>
+          <div class="kicker kicker-light">Het smoelenboek</div>
+          <h2 class="smoel-title">180+ ondernemers die je wílt kennen</h2>
+          <p class="smoel-lead">Van de bouw tot de horeca, van Wolvega tot Noordwolde. Straks volledig en automatisch gekoppeld aan onze ledenadministratie — altijd actueel.</p>
+          <a href="/leden" class="smoel-cta">Bekijk alle leden
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+        <div class="smoel-grid">
+          {leden.map((l) => (
+            <div class="lid">
+              <div class="avatar" style={`background:${l.bg}`}>{l.initials}</div>
+              <div class="lid-name">{l.name}</div>
+              <div class="lid-branche">{l.branche}</div>
+            </div>
+          ))}
+          <div class="lid lid-more">
+            <div class="more-num">+175</div>
+            <div class="more-sub">en jij?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ===== LIDMAATSCHAP ===== */}
+  <section id="lidmaatschap" class="ow-container block">
+    <div class="intro-center">
+      <div class="kicker">Word lid</div>
+      <h2>Kies wat bij jouw bedrijf past</h2>
+      <p>Twee lidmaatschappen, één doel: samen sterker ondernemen. Bedragen per jaar, excl. btw.</p>
+    </div>
+    <div class="prijs-grid">
+      <PrijsCard
+        tier="Kern" price="€50" blurb="Iedereen kan lid worden en meteen meedoen."
+        ctaLabel="Word kernlid" ctaHref="/lidmaatschap" features={kernFeatures} />
+      <PrijsCard
+        tier="Connectie" price="€325" blurb="Lid als bedrijf — maximaal zichtbaar en verbonden."
+        ctaLabel="Word connectielid" ctaHref="/lidmaatschap" featured
+        featuresIntro="Alles uit Kern, plus:" features={connectieFeatures} />
+    </div>
+  </section>
+
+  {/* ===== NIEUWS ===== */}
+  <section id="nieuws" class="ow-container block">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Nieuws</div>
+        <h2 class="h2-sm">Wat er speelt in de regio</h2>
+      </div>
+      <a href="/nieuws" class="pill-link">Alle artikelen
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="grid-3">
+      {nieuws.map((n) => <NieuwsCard {...n} />)}
+    </div>
+  </section>
+
+  {/* ===== NIEUWSBRIEF-BAND ===== */}
+  <section class="ow-container block-news">
+    <div class="news-band">
+      <div class="news-fan" aria-hidden="true"></div>
+      <div class="news-inner">
+        <div>
+          <h2 class="news-title">Blijf op de hoogte</h2>
+          <p class="news-lead">Nieuws, acties en bijeenkomsten — eens per maand in je inbox. Geen ruis, wel waarde.</p>
+        </div>
+        {/* In productie koppelen aan Laposta. */}
+        <form class="news-form" id="newsletter">
+          <div class="row">
+            <input type="text" name="voornaam" placeholder="Voornaam" />
+            <input type="text" name="achternaam" placeholder="Achternaam" />
+          </div>
+          <div class="row">
+            <input type="email" name="email" required placeholder="je@bedrijf.nl" />
+            <button type="submit">Abonneren</button>
+          </div>
+          <p class="news-msg" id="newsletter-msg" hidden></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Demo-afhandeling; vervang door koppeling met Laposta.
+  const form = document.getElementById('newsletter') as HTMLFormElement | null;
+  const msg = document.getElementById('newsletter-msg');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.reset();
+    if (msg) {
+      msg.textContent = 'Bedankt! Je bent aangemeld voor de nieuwsbrief.';
+      msg.hidden = false;
+    }
+  });
+</script>
+
+<style>
+  .block { padding-top: 46px; padding-bottom: 46px; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding-top: 64px;
+    padding-bottom: 40px;
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .hero-copy { animation: owrise .6s ease both; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--wit);
+    border: 1px solid rgba(41, 35, 92, .12);
+    padding: 7px 14px 7px 9px;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 13.5px;
+    color: var(--ink-500);
+    margin-bottom: 22px;
+    white-space: nowrap;
+  }
+  .dots { display: inline-flex; gap: 3px; }
+  .dots span { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+  h1 {
+    font-weight: 800;
+    font-size: 60px;
+    line-height: 1.02;
+    letter-spacing: -.025em;
+    margin: 0 0 20px;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  h1 .accent { color: var(--magenta); }
+  .lead {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--tekst);
+    max-width: 520px;
+    margin: 0 0 30px;
+    font-weight: 450;
+  }
+  .hero-cta { display: flex; gap: 13px; flex-wrap: wrap; margin-bottom: 34px; }
+  .btn-primary {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--magenta);
+    color: #fff;
+    font-weight: 700;
+    font-size: 16.5px;
+    padding: 15px 26px;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--schaduw-magenta);
+  }
+  .btn-ghost {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--wit);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 16.5px;
+    padding: 15px 24px;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid rgba(41, 35, 92, .16);
+  }
+  .stats { display: flex; gap: 30px; flex-wrap: wrap; }
+  .stats .num { font-weight: 800; font-size: 28px; color: var(--ink); line-height: 1; }
+  .stats .lbl { font-size: 14px; color: var(--tekst-dim); font-weight: 600; margin-top: 2px; }
+  .stats .divider { width: 1px; background: rgba(41, 35, 92, .13); }
+
+  .hero-visual { position: relative; animation: owrise .7s .1s ease both; }
+  .fan {
+    position: absolute;
+    inset: -30px -30px auto auto;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: conic-gradient(from 210deg at 70% 50%, #29235C 0 7deg, transparent 7deg 14deg, #951B81 14deg 21deg, transparent 21deg 28deg, #C8202A 28deg 35deg, transparent 35deg 42deg, #F09000 42deg 49deg, transparent 49deg 56deg, #16A892 56deg 63deg, transparent 63deg 90deg);
+    opacity: .5;
+    filter: blur(.3px);
+    z-index: 0;
+    mask: radial-gradient(circle at 70% 50%, transparent 38%, #000 39%);
+  }
+  .hero-visual .photo {
+    position: relative;
+    z-index: 1;
+    border-radius: var(--radius-card-lg);
+    overflow: hidden;
+    box-shadow: 0 30px 70px -28px rgba(41, 35, 92, .45);
+    border: 1px solid rgba(41, 35, 92, .08);
+  }
+  .photo-slot {
+    width: 100%;
+    height: 470px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    background: linear-gradient(135deg, var(--lila), #e8e6f0);
+    color: var(--ink-500);
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .chip {
+    position: absolute;
+    left: -22px;
+    bottom: 30px;
+    z-index: 2;
+    background: var(--wit);
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: 0 20px 44px -18px rgba(41, 35, 92, .4);
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    border: 1px solid rgba(41, 35, 92, .07);
+  }
+  .chip-date {
+    background: var(--magenta);
+    color: #fff;
+    border-radius: 11px;
+    width: 50px;
+    height: 54px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+  .chip-date .d { font-weight: 800; font-size: 22px; line-height: 1; }
+  .chip-date .m { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .chip-kicker { font-size: 11px; font-weight: 700; color: var(--magenta); text-transform: uppercase; letter-spacing: .05em; }
+  .chip-title { font-weight: 800; font-size: 16px; color: var(--ink); margin-top: 1px; }
+  .chip-sub { font-size: 13px; color: var(--tekst-dim); }
+
+  /* ---------- Gedeelde sectie-koppen ---------- */
+  .kicker {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    margin-bottom: 12px;
+  }
+  .kicker-light { color: #E59ED4; }
+  .intro-narrow { max-width: 640px; margin-bottom: 38px; }
+  .intro-narrow h2, .intro-center h2 {
+    font-weight: 800;
+    font-size: 38px;
+    line-height: 1.08;
+    letter-spacing: -.02em;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  .intro-narrow p, .intro-center p {
+    font-size: 17.5px;
+    line-height: 1.55;
+    color: var(--tekst);
+    margin: 0;
+  }
+  .intro-center { text-align: center; max-width: 600px; margin: 0 auto 38px; }
+
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .h2-sm {
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 1.08;
+    letter-spacing: -.02em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .pill-link {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink-500);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 11px 18px;
+    border: 1.5px solid rgba(41, 35, 92, .16);
+    border-radius: var(--radius-pill);
+    background: var(--wit);
+  }
+
+  .krachten-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .prijs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 920px; margin: 0 auto; }
+
+  /* ---------- Smoelenboek ---------- */
+  .smoel {
+    background: var(--ink);
+    border-radius: 26px;
+    padding: 46px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .smoel-fan {
+    position: absolute;
+    right: -60px;
+    top: -60px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: conic-gradient(from 200deg, #951B81 0 8deg, transparent 8deg 16deg, #C8202A 16deg 24deg, transparent 24deg 32deg, #F09000 32deg 40deg, transparent 40deg 48deg, #16A892 48deg 56deg, transparent 56deg 90deg);
+    opacity: .28;
+    mask: radial-gradient(circle, transparent 30%, #000 31%);
+  }
+  .smoel-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 44px;
+    align-items: center;
+  }
+  .smoel-title {
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    margin: 0 0 14px;
+    color: #fff;
+  }
+  .smoel-lead { font-size: 16.5px; line-height: 1.55; color: #C9C2E0; margin: 0 0 24px; }
+  .smoel-cta {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: #fff;
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px 24px;
+    border-radius: var(--radius-pill);
+  }
+  .smoel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+  .lid {
+    background: rgba(255, 255, 255, .07);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 15px;
+    padding: 16px;
+    text-align: center;
+  }
+  .avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 17px;
+  }
+  .lid-name { color: #fff; font-weight: 700; font-size: 14px; }
+  .lid-branche { color: #A99FCB; font-size: 12.5px; }
+  .lid-more {
+    background: rgba(255, 255, 255, .10);
+    border: 1px dashed rgba(255, 255, 255, .28);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .more-num { color: #fff; font-weight: 800; font-size: 19px; }
+  .more-sub { color: #C9C2E0; font-size: 12.5px; margin-top: 2px; }
+
+  /* ---------- Nieuwsbrief-band ---------- */
+  .block-news { padding-top: 30px; padding-bottom: 60px; }
+  .news-band {
+    background: linear-gradient(120deg, #951B81, #29235C 70%);
+    border-radius: 26px;
+    padding: 48px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .news-fan {
+    position: absolute;
+    right: -40px;
+    bottom: -90px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: conic-gradient(from 160deg, #F09000 0 8deg, transparent 8deg 16deg, #16A892 16deg 24deg, transparent 24deg 32deg, #C8202A 32deg 40deg, transparent 40deg 90deg);
+    opacity: .32;
+    mask: radial-gradient(circle, transparent 32%, #000 33%);
+  }
+  .news-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .news-title {
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    margin: 0 0 12px;
+    color: #fff;
+  }
+  .news-lead { font-size: 16.5px; line-height: 1.55; color: #E7DEF3; margin: 0; }
+  .news-form { display: flex; flex-direction: column; gap: 11px; }
+  .news-form .row { display: flex; gap: 10px; }
+  .news-form input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    border-radius: var(--radius-veld);
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    background: rgba(255, 255, 255, .95);
+    color: var(--ink);
+  }
+  .news-form button {
+    border: none;
+    cursor: pointer;
+    background: var(--oranje);
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 15.5px;
+    padding: 14px 22px;
+    border-radius: var(--radius-veld);
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  .news-msg { color: #fff; font-weight: 600; font-size: 14.5px; margin: 4px 0 0; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 920px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; }
+    h1 { font-size: 46px; }
+    .krachten-grid { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .prijs-grid { grid-template-columns: 1fr; }
+    .smoel-inner { grid-template-columns: 1fr; gap: 32px; }
+    .news-inner { grid-template-columns: 1fr; gap: 28px; }
+  }
+  @media (max-width: 520px) {
+    h1 { font-size: 38px; }
+    .smoel, .smoel-inner { padding: 0; }
+    .smoel { padding: 32px 24px; }
+    .news-band { padding: 32px 24px; }
+    .news-form .row { flex-direction: column; }
+  }
+</style>

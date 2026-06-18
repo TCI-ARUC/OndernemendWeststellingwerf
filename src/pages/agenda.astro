@@ -1,0 +1,140 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import InfoBlock from '../components/InfoBlock.astro';
+import { agendaStijl, dag, maandKort } from '../lib/taxonomy';
+
+const filters = ['Alles', 'Netwerkborrels', 'Bedrijfsbezoeken', 'Regio-evenementen'];
+
+const events = (await getCollection('agenda'))
+  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf())
+  .map((e) => {
+    const stijl = agendaStijl(e.data.category);
+    return {
+      day: dag(e.data.date),
+      month: maandKort(e.data.date),
+      dateBg: stijl.dateBg,
+      label: e.data.category,
+      labelBg: stijl.labelBg,
+      labelColor: stijl.labelColor,
+      time: e.data.time,
+      title: e.data.title,
+      text: e.data.excerpt,
+      ctaLabel: e.data.signup ? 'Aanmelden' : 'Meer info',
+      ctaHref: e.data.signup ?? '#',
+      ctaPrimary: Boolean(e.data.signup),
+    };
+  });
+---
+
+<Base title="Agenda — Ondernemend Weststellingwerf" active="agenda">
+  <PageHero
+    kicker="Agenda"
+    title="Kom langs, doe mee"
+    lead="Borrels, bedrijfsbezoeken en bijeenkomsten. Meld je in één klik aan — leden gratis of tegen ledentarief."
+    maxWidth={1000} />
+
+  {/* FILTERS (visueel) */}
+  <section class="wrap pad-sm">
+    <div class="chips">
+      {filters.map((f, i) => (
+        <span class:list={['chip', { active: i === 0 }]}>{f}</span>
+      ))}
+    </div>
+  </section>
+
+  {/* EVENT LIST */}
+  <section class="wrap list">
+    {events.map((e) => (
+      <div class="event">
+        <div class="date" style={`background:${e.dateBg}`}>
+          <span class="d">{e.day}</span>
+          <span class="m">{e.month}</span>
+        </div>
+        <div class="body">
+          <div class="meta">
+            <span class="label" style={`background:${e.labelBg};color:${e.labelColor}`}>{e.label}</span>
+            {e.time && <span class="time">{e.time}</span>}
+          </div>
+          <h3>{e.title}</h3>
+          <p>{e.text}</p>
+        </div>
+        <a href={e.ctaHref} class:list={['cta', { primary: e.ctaPrimary }]}>{e.ctaLabel}</a>
+      </div>
+    ))}
+  </section>
+
+  {/* INFO */}
+  <section class="wrap note">
+    <InfoBlock>
+      Binnenkort wordt de agenda automatisch gevuld vanuit het ledensysteem en kun je je met één klik aanmelden — inschrijving landt direct in de ledenadministratie. Geen dubbel werk meer.
+    </InfoBlock>
+  </section>
+</Base>
+
+<style>
+  .wrap { max-width: 1000px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  .pad-sm { padding-top: 8px; padding-bottom: 8px; }
+
+  .chips { display: flex; gap: 9px; flex-wrap: wrap; }
+  .chip {
+    background: var(--wit);
+    border: 1px solid rgba(41, 35, 92, .14);
+    color: var(--ink-500);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 9px 16px;
+    border-radius: var(--radius-pill);
+  }
+  .chip.active { background: var(--ink); color: #fff; font-weight: 700; border-color: transparent; }
+
+  .list { padding-top: 24px; padding-bottom: 10px; display: flex; flex-direction: column; gap: 14px; }
+  .event {
+    background: var(--wit);
+    border: 1px solid var(--rand);
+    border-radius: 18px;
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .date {
+    color: #fff;
+    border-radius: 14px;
+    width: 78px;
+    height: 84px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+  .date .d { font-weight: 800; font-size: 32px; line-height: 1; }
+  .date .m { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .body { flex: 1; min-width: 0; }
+  .meta { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap; }
+  .label { font-weight: 700; font-size: 12.5px; padding: 4px 10px; border-radius: var(--radius-pill); }
+  .time { color: var(--tekst-dim); font-size: 14px; font-weight: 600; }
+  .body h3 { font-weight: 800; font-size: 22px; margin: 0 0 4px; color: var(--ink); }
+  .body p { font-size: 14.5px; color: var(--tekst-dim); margin: 0; }
+  .cta {
+    text-decoration: none;
+    background: var(--wit);
+    color: var(--ink);
+    border: 1.5px solid rgba(41, 35, 92, .16);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 11px 22px;
+    border-radius: var(--radius-pill);
+    flex: none;
+  }
+  .cta.primary { background: var(--magenta); color: #fff; border-color: transparent; padding: 12px 22px; }
+
+  .note { padding-top: 22px; padding-bottom: 64px; }
+
+  @media (max-width: 640px) {
+    .event { flex-wrap: wrap; gap: 16px; }
+    .cta { width: 100%; text-align: center; }
+  }
+</style>
