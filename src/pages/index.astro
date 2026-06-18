@@ -102,13 +102,7 @@ const nieuws = (await getCollection('nieuws'))
       <div class="hero-visual">
         <div class="fan" aria-hidden="true"></div>
         <div class="photo">
-          {/* Tijdelijk merk-vlak; vervang door een echte <img> van Weststellingwerver ondernemers (geen stock). */}
-          <div class="photo-slot">
-            <span class="ph-fan" aria-hidden="true"></span>
-            <img src="/img/mark-ow.png" alt="Ondernemend Weststellingwerf" class="ph-mark" />
-            <span class="ph-words"><span>Ondernemend</span><span>Weststellingwerf</span></span>
-            <span class="ph-cap">Foto volgt — échte ondernemers uit Weststellingwerf</span>
-          </div>
+          <img src="/img/hero.jpg" alt="Ondernemers uit Weststellingwerf tijdens een bijeenkomst" class="hero-photo" width="1400" height="933" />
         </div>
         <div class="chip">
           <div class="chip-date">
@@ -129,7 +123,7 @@ const nieuws = (await getCollection('nieuws'))
     <div class="intro-narrow">
       <div class="kicker">Eén bijzondere club</div>
       <h2>Vier krachten, gebundeld voor jou</h2>
-      <p>We zijn netwerk én winkeliersvereniging, aanjager én belangenbehartiger — een mini-MKB Nederland voor de regio. Zo werkt dat in jouw voordeel.</p>
+      <p>We zijn netwerk én ondernemersvereniging, aanjager én belangenbehartiger — een mini-MKB Nederland voor de regio. Zo werkt dat in jouw voordeel.</p>
     </div>
     <div class="krachten-grid">
       <KrachtCard
@@ -159,7 +153,7 @@ const nieuws = (await getCollection('nieuws'))
       <KrachtCard
         accent="var(--rood)" iconBg="rgba(200,32,42,.10)" iconColor="var(--rood)"
         title="Stimuleringsfonds" titleExtra="Ondernemend Veuruut" badge="Eind 2026"
-        text="Een renteloze lening voor jouw innovatieve idee. Straks check je in één minuut of je in aanmerking komt."
+        text="Een steun in de rug voor jouw innovatieve idee. Straks check je in één minuut of je in aanmerking komt."
         linkLabel="Hou het in de gaten" linkColor="var(--rood)" href="/fonds">
         <svg slot="icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       </KrachtCard>
@@ -171,7 +165,7 @@ const nieuws = (await getCollection('nieuws'))
     <div class="section-head">
       <div>
         <div class="kicker">Binnenkort</div>
-        <h2 class="h2-sm">Zie je bij de volgende bijeenkomst?</h2>
+        <h2 class="h2-sm">Zien wij je bij de volgende bijeenkomst?</h2>
       </div>
       <a href="/agenda" class="pill-link">Hele agenda
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -386,51 +380,11 @@ const nieuws = (await getCollection('nieuws'))
     box-shadow: 0 30px 70px -28px rgba(41, 35, 92, .45);
     border: 1px solid rgba(41, 35, 92, .08);
   }
-  .photo-slot {
-    position: relative;
+  .hero-photo {
+    display: block;
     width: 100%;
     height: 470px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    overflow: hidden;
-    background: linear-gradient(150deg, #29235C, #4A4488);
-  }
-  .ph-fan {
-    position: absolute;
-    right: -70px;
-    bottom: -90px;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: conic-gradient(from 200deg, #951B81 0 8deg, transparent 8deg 16deg, #C8202A 16deg 24deg, transparent 24deg 32deg, #F09000 32deg 40deg, transparent 40deg 48deg, #16A892 48deg 56deg, transparent 56deg 90deg);
-    opacity: .28;
-    mask: radial-gradient(circle, transparent 30%, #000 31%);
-  }
-  .ph-mark { position: relative; z-index: 1; height: 165px; width: auto; }
-  .ph-words {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    line-height: 1.05;
-    text-align: center;
-    font-weight: 800;
-    font-size: 24px;
-    color: #fff;
-    letter-spacing: -.01em;
-  }
-  .ph-words span:last-child { font-weight: 600; color: var(--lila); }
-  .ph-cap {
-    position: absolute;
-    bottom: 16px;
-    right: 18px;
-    text-align: right;
-    font-size: 12.5px;
-    color: #B7AEDB;
-    font-weight: 600;
+    object-fit: cover;
   }
   .chip {
     position: absolute;
