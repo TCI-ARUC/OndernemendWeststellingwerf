@@ -11,7 +11,7 @@ interface Props {
 const { kicker, title, lead, center = false, fan = false, maxWidth = 1000 } = Astro.props;
 ---
 
-<section class:list={['page-hero', { fan }]}>
+<section class="page-hero">
   {fan && <div class="fan" aria-hidden="true"></div>}
   <div class:list={['inner', { center }]} style={`max-width:${maxWidth}px`}>
     {kicker && <div class="kicker">{kicker}</div>}
