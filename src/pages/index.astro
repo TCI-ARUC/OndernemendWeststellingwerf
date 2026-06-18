@@ -102,8 +102,13 @@ const nieuws = (await getCollection('nieuws'))
       <div class="hero-visual">
         <div class="fan" aria-hidden="true"></div>
         <div class="photo">
-          {/* Vervang dit vlak door een echte <img> van Weststellingwerver ondernemers (geen stock). */}
-          <div class="photo-slot">Foto van échte Weststellingwerver ondernemers</div>
+          {/* Tijdelijk merk-vlak; vervang door een echte <img> van Weststellingwerver ondernemers (geen stock). */}
+          <div class="photo-slot">
+            <span class="ph-fan" aria-hidden="true"></span>
+            <img src="/img/mark-ow.png" alt="Ondernemend Weststellingwerf" class="ph-mark" />
+            <span class="ph-words"><span>Ondernemend</span><span>Weststellingwerf</span></span>
+            <span class="ph-cap">Foto volgt — échte ondernemers uit Weststellingwerf</span>
+          </div>
         </div>
         <div class="chip">
           <div class="chip-date">
@@ -382,17 +387,50 @@ const nieuws = (await getCollection('nieuws'))
     border: 1px solid rgba(41, 35, 92, .08);
   }
   .photo-slot {
+    position: relative;
     width: 100%;
     height: 470px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 20px;
+    overflow: hidden;
+    background: linear-gradient(150deg, #29235C, #4A4488);
+  }
+  .ph-fan {
+    position: absolute;
+    right: -70px;
+    bottom: -90px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: conic-gradient(from 200deg, #951B81 0 8deg, transparent 8deg 16deg, #C8202A 16deg 24deg, transparent 24deg 32deg, #F09000 32deg 40deg, transparent 40deg 48deg, #16A892 48deg 56deg, transparent 56deg 90deg);
+    opacity: .28;
+    mask: radial-gradient(circle, transparent 30%, #000 31%);
+  }
+  .ph-mark { position: relative; z-index: 1; height: 165px; width: auto; }
+  .ph-words {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
     text-align: center;
-    padding: 24px;
-    background: linear-gradient(135deg, var(--lila), #e8e6f0);
-    color: var(--ink-500);
+    font-weight: 800;
+    font-size: 24px;
+    color: #fff;
+    letter-spacing: -.01em;
+  }
+  .ph-words span:last-child { font-weight: 600; color: var(--lila); }
+  .ph-cap {
+    position: absolute;
+    bottom: 16px;
+    right: 18px;
+    text-align: right;
+    font-size: 12.5px;
+    color: #B7AEDB;
     font-weight: 600;
-    font-size: 15px;
   }
   .chip {
     position: absolute;
