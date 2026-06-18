@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+const EMAIL = 'info@parkmanagementwolvega.nl';
+---
+
+<Base title="Privacyverklaring — Ondernemend Weststellingwerf" description="Privacyverklaring (AVG) van Stichting Parkmanagement Bedrijventerreinen Wolvega.">
+  <PageHero kicker="Privacy" title="Privacyverklaring" maxWidth={820} />
+
+  <section class="wrap">
+    <div class="prose">
+      <p>Stichting Parkmanagement Bedrijventerreinen Wolvega (SPBW) is ervan overtuigd dat de bescherming van de persoonlijke levenssfeer van bezoekers van haar website van belang is voor haar activiteiten. Persoonsgegevens van bezoekers worden dan ook met de grootst mogelijke zorgvuldigheid behandeld en beveiligd, conform de eisen van de Algemene Verordening Gegevensbescherming (AVG).</p>
+
+      <h2>Welke informatie verzamelen wij en waarom?</h2>
+      <p>SPBW verzamelt de volgende persoonsgegevens: naam van het bedrijf, contactpersoon, adres, telefoonnummer en e-mailadres.</p>
+
+      <h2>Waarvoor wordt deze informatie gebruikt?</h2>
+      <p>De persoonsgegevens die SPBW verzamelt, worden gebruikt om u te informeren over de activiteiten van de stichting. SPBW kan daarbij gebruikmaken van derden voor het verzamelen en verwerken van uw gegevens. Wilt u uw persoonsgegevens laten verwijderen of wijzigen, neem dan contact met ons op.</p>
+
+      <h2>Andere belangrijke informatie</h2>
+      <p>De website kan links naar andere websites bevatten. Wij aanvaarden op geen enkele manier aansprakelijkheid voor de inhoud of het privacybeleid van deze sites. Daarnaast kunnen sommige webpagina's cookies bevatten. Een cookie is een gegevenselement dat door een website naar uw webbrowser kan worden gezonden en op uw computer kan worden opgeslagen.</p>
+
+      <h2>Contact</h2>
+      <p>Vragen over deze privacyverklaring of over je gegevens? Mail naar <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .wrap { max-width: 820px; margin: 0 auto; padding: 8px 24px 64px; }
+  .prose p { font-size: 17px; line-height: 1.7; color: var(--tekst); margin: 0 0 18px; }
+  .prose h2 { font-weight: 800; font-size: 22px; letter-spacing: -.02em; color: var(--ink); margin: 30px 0 10px; }
+  .prose a { color: var(--magenta); }
+</style>

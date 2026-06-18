@@ -2,13 +2,16 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 
+const PM_EMAIL = 'info@parkmanagementwolvega.nl';
+const PM_TEL = '06-21 902 272';
+
 const terreinen = ['Schipsloot', 'Noord-West', 'De Plantage', 'Heerendeel', 'Van der Valk (deels)'];
 
 const diensten = [
   {
     accent: 'var(--teal)', bg: 'rgba(22,168,146,.12)', color: 'var(--teal-tekst)',
     title: 'Veiligheid & KVO-B',
-    text: 'Collectieve beveiliging via G4S, anoniem misdaad melden en korte lijnen met de wijkagent en toezichthouders. Het Keurmerk Veilig Ondernemen borgt dat je hier veilig onderneemt.',
+    text: 'Collectieve beveiliging via G4S, anoniem misdaad melden en korte lijnen met de wijkagent en toezichthouders/Boa. Het Keurmerk Veilig Ondernemen borgt dat je hier veilig onderneemt.',
     icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
   },
   {
@@ -26,9 +29,40 @@ const diensten = [
   {
     accent: 'var(--rood)', bg: 'rgba(200,32,42,.10)', color: 'var(--rood)',
     title: 'Digitaal & ondersteuning',
-    text: 'Een cybersecurity IT-scan en de MKB Cyber Alarmcentrale houden je digitaal weerbaar. Daarnaast ondersteuning bij BHV en de RI&E (risico-inventarisatie).',
+    text: 'Een Cyber Security IT-scan en de MKB Cyber Alarmcentrale houden je digitaal weerbaar. Daarnaast ondersteuning bij BHV en de RI&E (risico-inventarisatie & -evaluatie).',
     icon: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
   },
+];
+
+const doelen = [
+  'In stand houden van de kwaliteit van de bedrijventerreinen',
+  'Realisatie van duurzaamheid met blijvende functionaliteit',
+  'Een hoog voorzieningenniveau behouden',
+  'Representativiteit van de terreinen borgen',
+  'Behoud van de waarde van het onroerend goed',
+  'Besparingen op de inkoop van collectieve diensten',
+];
+
+const documenten = [
+  { label: 'Jaarverslag 2025', meta: 'PDF', href: '/docs/parkmanagement/jaarverslag-2025.pdf' },
+  { label: 'KVO-B-certificaat 2025–2028', meta: 'PDF', href: '/docs/parkmanagement/kvo-b-certificaat-2025-2028.pdf' },
+  { label: 'KVO-B-auditrapportage 2025', meta: 'PDF', href: '/docs/parkmanagement/kvo-b-auditrapportage-2025.pdf' },
+];
+
+const formulieren = [
+  { label: 'Interesse deelname collectief (bewegwijzering, afval &/of beveiliging)', meta: 'Word', href: '/docs/parkmanagement/formulier-interesse-deelname-collectief.doc' },
+  { label: 'Aanmelden afval &/of beveiliging', meta: 'Word', href: '/docs/parkmanagement/formulier-aanmelden-afval-beveiliging.doc' },
+  { label: 'Aanmelden / wijzigen bewegwijzering', meta: 'Word', href: '/docs/parkmanagement/formulier-aanmelden-bewegwijzering.doc' },
+];
+
+const bestuur = [
+  { naam: 'Marck Hiemstra', rol: 'Duo-voorzitter — European Aerosols' },
+  { naam: 'Willem Feenstra', rol: 'Duo-voorzitter — Carrosseriefabriek Heiwo' },
+  { naam: 'Marcus Dubling', rol: 'Secretaris — afval, beveiliging en KVO-B' },
+  { naam: 'John Maijer', rol: 'Bewegwijzering' },
+  { naam: 'Johan Helmich', rol: 'Afval, beveiliging en KVO-B — European Aerosols' },
+  { naam: 'Arjen Witteveen', rol: 'Bestuurslid — Vitablend' },
+  { naam: 'Désiree Dijkstra', rol: 'Communicatie & ondersteuning — De Verbinding' },
 ];
 ---
 
@@ -48,7 +82,7 @@ const diensten = [
       <div class="terreinen-head">
         <span class="kvo">KVO-B 2025–2028</span>
         <h2>Vijf gecertificeerde terreinen</h2>
-        <p>Schipsloot, Noord-West, De Plantage, Heerendeel en een deel van Van der Valk dragen samen het <strong>Keurmerk Veilig Ondernemen – Bedrijventerrein</strong>: een erkenning voor terreinen waar samenwerking de veiligheid aantoonbaar verbetert.</p>
+        <p>Schipsloot, Noord-West, De Plantage, Heerendeel en een deel van Van der Valk dragen samen het <strong>Keurmerk Veilig Ondernemen – Bedrijventerrein</strong> (sinds 2022): een erkenning voor terreinen waar samenwerking de veiligheid aantoonbaar verbetert.</p>
       </div>
       <ul class="chips">
         {terreinen.map((t) => <li>{t}</li>)}
@@ -76,6 +110,74 @@ const diensten = [
     </div>
   </section>
 
+  {/* DOELSTELLINGEN */}
+  <section class="wrap pad-top">
+    <div class="doelen card">
+      <h2>Onze doelstellingen</h2>
+      <p class="doelen-intro">Het doel van Parkmanagement is het structureel verbeteren van het ondernemersklimaat op de bedrijventerreinen.</p>
+      <ul class="checklist">
+        {doelen.map((d) => (
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            {d}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* DOCUMENTEN & FORMULIEREN */}
+  <section class="wrap pad-top">
+    <div class="docs-grid">
+      <div class="card docblock">
+        <h2>Documenten</h2>
+        <ul class="filelist">
+          {documenten.map((f) => (
+            <li>
+              <a href={f.href} target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span>{f.label}</span>
+                <em>{f.meta}</em>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="card docblock">
+        <h2>Aanmelden & interesse</h2>
+        <ul class="filelist">
+          {formulieren.map((f) => (
+            <li>
+              <a href={f.href} target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>{f.label}</span>
+                <em>{f.meta}</em>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="docnote">Interesse om mee te doen aan een collectief? Vul het betreffende formulier in en stuur het naar <a href={`mailto:${PM_EMAIL}`}>{PM_EMAIL}</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  {/* BESTUUR & CONTACT */}
+  <section class="wrap pad-top">
+    <div class="card org">
+      <h2>Bestuur &amp; contact</h2>
+      <p class="org-intro">Het Parkmanagement wordt gerund door een bestuur van ondernemers van de terreinen zelf.</p>
+      <ul class="bestuur">
+        {bestuur.map((b) => (
+          <li><span class="naam">{b.naam}</span><span class="rol">{b.rol}</span></li>
+        ))}
+      </ul>
+      <div class="org-contact">
+        Vragen over het Parkmanagement? Neem contact op met secretaris <strong>Marcus Dubling</strong> —
+        <a href={`tel:+31621902272`}>{PM_TEL}</a> · <a href={`mailto:${PM_EMAIL}`}>{PM_EMAIL}</a>
+      </div>
+    </div>
+  </section>
+
   {/* CTA */}
   <section class="wrap cta-wrap">
     <div class="cta-band">
@@ -83,7 +185,7 @@ const diensten = [
       <div class="cta-inner">
         <h2>Gevestigd op een Wolvegaster bedrijventerrein?</h2>
         <p>Profiteer mee van de collectieve afspraken en denk mee over een veilig, vitaal terrein.</p>
-        <a href="/contact" class="cta-btn">Neem contact op
+        <a href={`mailto:${PM_EMAIL}`} class="cta-btn">Mail het Parkmanagement
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
@@ -94,14 +196,10 @@ const diensten = [
 <style>
   .wrap { max-width: 1100px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
   .pad { padding-top: 30px; padding-bottom: 16px; }
-  .pad-top { padding-top: 30px; padding-bottom: 16px; }
+  .pad-top { padding-top: 24px; padding-bottom: 16px; }
+  .card { background: var(--wit); border: 1px solid var(--rand); border-radius: 22px; }
 
-  .terreinen {
-    background: var(--wit);
-    border: 1px solid var(--rand);
-    border-radius: 22px;
-    padding: 34px 36px;
-  }
+  .terreinen { padding: 34px 36px; }
   .terreinen-head .kvo {
     display: inline-block;
     background: rgba(22, 168, 146, .12);
@@ -131,18 +229,55 @@ const diensten = [
   .head-center p { font-size: 16.5px; line-height: 1.55; color: var(--tekst); margin: 0; }
 
   .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .card {
-    background: var(--wit);
-    border: 1px solid var(--rand);
-    border-radius: 20px;
-    padding: 28px;
-    position: relative;
-    overflow: hidden;
-  }
+  .grid .card { padding: 28px; position: relative; overflow: hidden; }
   .topbar { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
   .icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
-  .card h3 { font-weight: 700; font-size: 21px; margin: 0 0 8px; color: var(--ink); }
-  .card p { font-size: 15.5px; line-height: 1.55; color: var(--tekst); margin: 0; }
+  .grid h3 { font-weight: 700; font-size: 21px; margin: 0 0 8px; color: var(--ink); }
+  .grid p { font-size: 15.5px; line-height: 1.55; color: var(--tekst); margin: 0; }
+
+  /* Doelstellingen */
+  .doelen { padding: 32px 36px; }
+  .doelen h2 { font-weight: 800; font-size: 24px; letter-spacing: -.02em; margin: 0 0 8px; color: var(--ink); }
+  .doelen-intro { font-size: 16px; line-height: 1.6; color: var(--tekst); margin: 0 0 18px; }
+  .checklist { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+  .checklist li { display: flex; gap: 10px; font-size: 15.5px; color: var(--ink-500); align-items: flex-start; }
+  .checklist svg { flex: none; margin-top: 2px; }
+
+  /* Documenten & formulieren */
+  .docs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .docblock { padding: 30px 32px; }
+  .docblock h2 { font-weight: 800; font-size: 22px; letter-spacing: -.02em; margin: 0 0 16px; color: var(--ink); }
+  .filelist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .filelist a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--rand);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-weight: 600;
+    font-size: 14.5px;
+  }
+  .filelist a:hover { border-color: var(--magenta); color: var(--magenta); }
+  .filelist svg { flex: none; color: var(--magenta); }
+  .filelist span { flex: 1; line-height: 1.35; }
+  .filelist em { font-style: normal; font-size: 11.5px; font-weight: 700; color: var(--tekst-dim); text-transform: uppercase; letter-spacing: .04em; flex: none; }
+  .docnote { font-size: 14px; line-height: 1.55; color: var(--tekst-dim); margin: 16px 0 0; }
+  .docnote a { color: var(--magenta); }
+
+  /* Bestuur & contact */
+  .org { padding: 32px 36px; }
+  .org h2 { font-weight: 800; font-size: 24px; letter-spacing: -.02em; margin: 0 0 8px; color: var(--ink); }
+  .org-intro { font-size: 16px; line-height: 1.6; color: var(--tekst); margin: 0 0 18px; }
+  .bestuur { list-style: none; padding: 0; margin: 0 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+  .bestuur li { display: flex; flex-direction: column; padding-bottom: 12px; border-bottom: 1px solid var(--rand); }
+  .bestuur .naam { font-weight: 800; font-size: 15.5px; color: var(--ink); }
+  .bestuur .rol { font-size: 13.5px; color: var(--tekst-dim); }
+  .org-contact { font-size: 15px; line-height: 1.6; color: var(--ink-500); }
+  .org-contact a { color: var(--magenta); text-decoration: none; font-weight: 700; }
 
   .cta-wrap { padding: 34px 24px 64px; }
   .cta-band {
@@ -181,7 +316,7 @@ const diensten = [
   }
 
   @media (max-width: 760px) {
-    .grid { grid-template-columns: 1fr; }
-    .terreinen { padding: 28px 24px; }
+    .grid, .docs-grid, .checklist, .bestuur { grid-template-columns: 1fr; }
+    .terreinen, .doelen, .docblock, .org { padding: 28px 24px; }
   }
 </style>
