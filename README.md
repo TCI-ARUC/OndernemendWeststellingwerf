@@ -72,11 +72,10 @@ Elke push naar `main` bouwt en publiceert de site via GitHub Actions naar GitHub
 ## Belangrijke aandachtspunten
 
 ### Logo
-Het officiële logo kon **niet** uit de design-handoff worden opgehaald (de bron-PNG's
-zijn groter dan de 256 KiB-limiet van de design-koppeling en kwamen afgekapt binnen).
-Als tijdelijke stand-in staat er een schaalbare SVG-waaier in de huisstijlkleuren:
-`public/img/mark-ow.svg`. **Vervang deze door het echte logo** (volledige PNG/SVG)
-zodra dat beschikbaar is; header, footer en favicon verwijzen ernaar.
+Het echte logo staat in `public/img/` (uitgesneden uit het aangeleverde `Logo 16_9.jpg`,
+met transparante achtergrond):
+- `mark-ow.png` — alleen het waaier-merkteken; gebruikt in header, footer en favicon.
+- `logo-ow.png` — het volledige logo (waaier + woordmerk) voor waar dat beter past.
 
 ### Foto's
 De hero en nieuwskaarten gebruiken nu placeholder-vlakken. Vervang ze door echte foto's
