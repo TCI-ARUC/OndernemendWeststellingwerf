@@ -1,0 +1,281 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+const SOW_EMAIL = 'bestuursow@gmail.com';
+
+const besteding = [
+  {
+    accent: 'var(--oranje)', bg: 'rgba(240,144,0,.13)', color: 'var(--oranje-tekst)',
+    title: 'Evenementen & activiteiten',
+    text: 'Van het Lindefestival tot de Sinterklaasintocht — bijeenkomsten die het centrum en de dorpen laten bruisen en bezoekers trekken.',
+    icon: '<path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+  },
+  {
+    accent: 'var(--magenta)', bg: 'rgba(149,27,129,.10)', color: 'var(--magenta)',
+    title: 'Regiomarketing',
+    text: 'Gezamenlijke promotie van Weststellingwerf als plek om te winkelen, te bezoeken en te ondernemen — samen met Stiekm Trots.',
+    icon: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+  },
+  {
+    accent: 'var(--teal)', bg: 'rgba(22,168,146,.12)', color: 'var(--teal-tekst)',
+    title: 'Aankleding & leefbaarheid',
+    text: 'Sfeer en uitstraling van de centra — denk aan de aankleding van het Centrumplein en seizoensversiering die het winkelgebied aantrekkelijk houden.',
+    icon: '<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>',
+  },
+  {
+    accent: 'var(--rood)', bg: 'rgba(200,32,42,.10)', color: 'var(--rood)',
+    title: 'Lokale initiatieven',
+    text: 'Plannen van ondernemersgroepen die de leefbaarheid en het ondernemersklimaat in hun dorp versterken — ingediend door de ondernemers zelf.',
+    icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  },
+];
+
+const stappen = [
+  { n: '1', title: 'Dien je aanvraag in', text: 'Organisaties en ondernemersgroepen sturen hun plan vóór 15 maart naar het bestuur.' },
+  { n: '2', title: 'Beoordeling', text: 'Het bestuur toetst de aanvraag aan de voorwaarden — het geld komt ten goede aan hetzelfde dorp.' },
+  { n: '3', title: 'Toekenning & uitvoering', text: 'Bij toekenning wordt de bijdrage uitgekeerd en kun je je activiteit uitvoeren.' },
+];
+
+const documenten = [
+  'Voorwaarden toekennen bijdrage',
+  'Statuten & reglement SOW',
+  'Verslagen en stukken',
+  'Privacyverklaring & AVG-toets',
+];
+
+const bestuur = [
+  { naam: 'Frank Zeinstra', rol: 'Voorzitter & penningmeester' },
+  { naam: 'Marcus Dubling', rol: 'Secretaris' },
+  { naam: 'Bert Piest', rol: 'Bestuurslid' },
+  { naam: 'Menno de Koe', rol: 'Bestuurslid' },
+  { naam: 'Linda Jongejans', rol: 'Bestuurslid' },
+  { naam: 'Margriet Bosma', rol: 'Bestuurslid' },
+];
+---
+
+<Base
+  title="Ondernemersfonds Weststellingwerf (SOW) — Ondernemend Weststellingwerf"
+  description="Stichting Ondernemersfonds Weststellingwerf (SOW) brengt de opbrengst van de reclamebelasting samen en laat die terugvloeien naar activiteiten die het ondernemersklimaat in Wolvega en Noordwolde versterken."
+  active="ondernemersfonds">
+  <PageHero
+    kicker="Ondernemersfonds"
+    title="Ondernemersfonds Weststellingwerf"
+    lead="Stichting Ondernemersfonds Weststellingwerf (SOW) brengt de opbrengst van de reclamebelasting samen en laat die terugvloeien naar de ondernemers — voor activiteiten die de leefbaarheid en het ondernemersklimaat in onze dorpen versterken."
+    fan maxWidth={900} />
+
+  {/* HOE HET WERKT */}
+  <section class="wrap pad">
+    <div class="terreinen">
+      <div class="terreinen-head">
+        <span class="kvo">Wolvega sinds 2016 · Noordwolde sinds 2026</span>
+        <h2>Samen brengen, samen besteden</h2>
+        <p>De gemeente heft <strong>reclamebelasting</strong> bij ondernemers in het centrumgebied. Die opbrengst draagt zij af aan SOW. Het uitgangspunt is simpel: <strong>het geld vloeit terug naar dezelfde club ondernemers</strong>. Wat in een dorp wordt opgehaald, komt ten goede aan datzelfde dorp — voor gezamenlijke activiteiten die het centrum versterken.</p>
+        <p class="terreinen-note">Onderneem je op een Wolvegaster bedrijventerrein? Dan loopt de collectieve bijdrage via het <a href="/bedrijventerreinen">Parkmanagement</a> in plaats van de reclamebelasting.</p>
+      </div>
+    </div>
+  </section>
+
+  {/* WAAR HET GELD NAARTOE GAAT */}
+  <section class="wrap pad-top">
+    <div class="head-center">
+      <h2>Waar het geld naartoe gaat</h2>
+      <p>SOW financiert plannen die ondernemers samen sterker maken en de centra levendig houden.</p>
+    </div>
+    <div class="grid">
+      {besteding.map((d) => (
+        <div class="card">
+          <div class="topbar" style={`background:${d.accent}`}></div>
+          <div class="icon" style={`background:${d.bg};color:${d.color}`}>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={d.icon} />
+          </div>
+          <h3>{d.title}</h3>
+          <p>{d.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* AANVRAGEN */}
+  <section class="wrap pad-top">
+    <div class="doelen card">
+      <h2>Een bijdrage aanvragen</h2>
+      <p class="doelen-intro">Heb je een activiteit of plan dat het ondernemersklimaat in jouw dorp versterkt? Dien je aanvraag <strong>vóór 15 maart</strong> in bij het bestuur via <a href={`mailto:${SOW_EMAIL}`}>{SOW_EMAIL}</a>.</p>
+      <div class="stappen">
+        {stappen.map((s) => (
+          <div class="stap">
+            <div class="num">{s.n}</div>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* DOCUMENTEN */}
+  <section class="wrap pad-top">
+    <div class="card docblock">
+      <h2>Documenten</h2>
+      <ul class="filelist">
+        {documenten.map((d) => (
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span>{d}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="docnote">De stukken zijn op te vragen bij het bestuur via <a href={`mailto:${SOW_EMAIL}`}>{SOW_EMAIL}</a>.</p>
+    </div>
+  </section>
+
+  {/* BESTUUR & CONTACT */}
+  <section class="wrap pad-top">
+    <div class="card org">
+      <h2>Bestuur &amp; contact</h2>
+      <p class="org-intro">Het bestuur van SOW bestaat uit ondernemers die samen een brede vertegenwoordiging vormen — van horeca en Parkmanagement tot Stiekm Trots, WOW en ongeorganiseerde ondernemers.</p>
+      <ul class="bestuur">
+        {bestuur.map((b) => (
+          <li><span class="naam">{b.naam}</span><span class="rol">{b.rol}</span></li>
+        ))}
+      </ul>
+      <div class="org-contact">
+        Vragen, een aanvraag of interesse om mee te besturen? Mail het bestuur —
+        <a href={`mailto:${SOW_EMAIL}`}>{SOW_EMAIL}</a>
+      </div>
+    </div>
+  </section>
+
+  {/* CTA */}
+  <section class="wrap cta-wrap">
+    <div class="cta-band">
+      <div class="cta-fan" aria-hidden="true"></div>
+      <div class="cta-inner">
+        <h2>Een idee dat jouw dorp versterkt?</h2>
+        <p>Vertel het ons en dien vóór 15 maart een aanvraag in. Samen investeren we in een levendig en aantrekkelijk Weststellingwerf.</p>
+        <a href={`mailto:${SOW_EMAIL}`} class="cta-btn">Mail het bestuur
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .wrap { max-width: 1100px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  .pad { padding-top: 30px; padding-bottom: 16px; }
+  .pad-top { padding-top: 24px; padding-bottom: 16px; }
+  .card { background: var(--wit); border: 1px solid var(--rand); border-radius: 22px; }
+
+  .terreinen { padding: 34px 36px; }
+  .terreinen-head .kvo {
+    display: inline-block;
+    background: rgba(240, 144, 0, .13);
+    color: var(--oranje-tekst);
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: .03em;
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 12px;
+  }
+  .terreinen-head h2 { font-weight: 800; font-size: 26px; letter-spacing: -.02em; margin: 0 0 10px; color: var(--ink); }
+  .terreinen-head p { font-size: 16px; line-height: 1.6; color: var(--tekst); margin: 0 0 14px; max-width: 760px; }
+  .terreinen-note { font-size: 15px; color: var(--tekst-dim); margin: 0; }
+  .terreinen-note a { color: var(--magenta); font-weight: 600; text-decoration: none; }
+
+  .head-center { text-align: center; max-width: 600px; margin: 8px auto 28px; }
+  .head-center h2 { font-weight: 800; font-size: 30px; letter-spacing: -.02em; margin: 0 0 10px; color: var(--ink); }
+  .head-center p { font-size: 16.5px; line-height: 1.55; color: var(--tekst); margin: 0; }
+
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .grid .card { padding: 28px; position: relative; overflow: hidden; }
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+  .icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+  .grid h3 { font-weight: 700; font-size: 21px; margin: 0 0 8px; color: var(--ink); }
+  .grid p { font-size: 15.5px; line-height: 1.55; color: var(--tekst); margin: 0; }
+
+  /* Aanvragen */
+  .doelen { padding: 32px 36px; }
+  .doelen h2 { font-weight: 800; font-size: 24px; letter-spacing: -.02em; margin: 0 0 8px; color: var(--ink); }
+  .doelen-intro { font-size: 16px; line-height: 1.6; color: var(--tekst); margin: 0 0 24px; }
+  .doelen-intro a { color: var(--magenta); font-weight: 600; }
+  .stappen { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .stap { background: var(--paper); border: 1px solid var(--rand); border-radius: 16px; padding: 22px; }
+  .stap .num { width: 36px; height: 36px; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .stap h3 { font-weight: 800; font-size: 17px; margin: 0 0 6px; color: var(--ink); }
+  .stap p { font-size: 14.5px; line-height: 1.55; color: var(--tekst); margin: 0; }
+
+  /* Documenten */
+  .docblock { padding: 30px 32px; }
+  .docblock h2 { font-weight: 800; font-size: 22px; letter-spacing: -.02em; margin: 0 0 16px; color: var(--ink); }
+  .filelist { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .filelist li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--rand);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-weight: 600;
+    font-size: 14.5px;
+  }
+  .filelist svg { flex: none; color: var(--oranje-tekst); }
+  .filelist span { flex: 1; line-height: 1.35; }
+  .docnote { font-size: 14px; line-height: 1.55; color: var(--tekst-dim); margin: 16px 0 0; }
+  .docnote a { color: var(--magenta); }
+
+  /* Bestuur & contact */
+  .org { padding: 32px 36px; }
+  .org h2 { font-weight: 800; font-size: 24px; letter-spacing: -.02em; margin: 0 0 8px; color: var(--ink); }
+  .org-intro { font-size: 16px; line-height: 1.6; color: var(--tekst); margin: 0 0 18px; max-width: 760px; }
+  .bestuur { list-style: none; padding: 0; margin: 0 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+  .bestuur li { display: flex; flex-direction: column; padding-bottom: 12px; border-bottom: 1px solid var(--rand); }
+  .bestuur .naam { font-weight: 800; font-size: 15.5px; color: var(--ink); }
+  .bestuur .rol { font-size: 13.5px; color: var(--tekst-dim); }
+  .org-contact { font-size: 15px; line-height: 1.6; color: var(--ink-500); }
+  .org-contact a { color: var(--magenta); text-decoration: none; font-weight: 700; }
+
+  .cta-wrap { padding: 34px 24px 64px; }
+  .cta-band {
+    background: linear-gradient(120deg, #F09000, #C8202A 80%);
+    border-radius: 24px;
+    padding: 46px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-fan {
+    position: absolute;
+    left: -50px;
+    bottom: -90px;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: conic-gradient(from 160deg, #fff 0 8deg, transparent 8deg 16deg, #951B81 16deg 24deg, transparent 24deg 32deg, #16A892 32deg 40deg, transparent 40deg 90deg);
+    opacity: .26;
+    mask: radial-gradient(circle, transparent 32%, #000 33%);
+  }
+  .cta-inner { position: relative; z-index: 1; }
+  .cta-inner h2 { font-weight: 800; font-size: 28px; letter-spacing: -.02em; margin: 0 0 12px; color: #fff; }
+  .cta-inner p { font-size: 16.5px; color: #FFE9D6; margin: 0 auto 24px; max-width: 540px; }
+  .cta-btn {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: #fff;
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 16.5px;
+    padding: 15px 28px;
+    border-radius: var(--radius-pill);
+  }
+
+  @media (max-width: 760px) {
+    .grid, .filelist, .bestuur, .stappen { grid-template-columns: 1fr; }
+    .terreinen, .doelen, .docblock, .org { padding: 28px 24px; }
+  }
+</style>

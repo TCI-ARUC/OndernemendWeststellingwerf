@@ -1,11 +1,20 @@
 ---
 // Gedeelde sticky header. `active` markeert de actieve nav-link.
+type NavKey = 'home' | 'overons' | 'agenda' | 'leden' | 'lidmaatschap' | 'nieuws' | 'fonds' | 'bedrijventerreinen' | 'ondernemersfonds';
+
 interface Props {
-  active?: 'home' | 'overons' | 'agenda' | 'leden' | 'lidmaatschap' | 'nieuws' | 'fonds' | 'bedrijventerreinen';
+  active?: NavKey;
 }
 const { active } = Astro.props;
 
 const LEDENPORTAAL = 'https://app.clubcollect.com/ma/0e1183ceb4f5c970bb0bb3080204adbabc8fe53c';
+
+// De drie samenwerkende stichtingen/fondsen staan gegroepeerd onder "Stichtingen".
+const stichtingen = [
+  { key: 'bedrijventerreinen', label: 'Bedrijventerreinen', sub: 'Parkmanagement Wolvega', href: '/bedrijventerreinen' },
+  { key: 'ondernemersfonds', label: 'Ondernemersfonds', sub: 'SOW · reclamebelasting', href: '/ondernemersfonds' },
+  { key: 'fonds', label: 'Stimuleringsfonds', sub: 'Ondernemend Veuruut', href: '/fonds' },
+] as const;
 
 const nav = [
   { key: 'home', label: 'Home', href: '/' },
@@ -14,9 +23,9 @@ const nav = [
   { key: 'leden', label: 'Leden', href: '/leden' },
   { key: 'lidmaatschap', label: 'Lidmaatschap', href: '/lidmaatschap' },
   { key: 'nieuws', label: 'Nieuws', href: '/nieuws' },
-  { key: 'fonds', label: 'Fonds', href: '/fonds' },
-  { key: 'bedrijventerreinen', label: 'Bedrijventerreinen', href: '/bedrijventerreinen' },
-];
+] as const;
+
+const stichtingActive = stichtingen.some((s) => s.key === active);
 ---
 
 <header class="site-header" data-header>
@@ -35,6 +44,20 @@ const nav = [
           {item.label}
         </a>
       ))}
+      <div class="has-menu">
+        <button type="button" class:list={['nav-link', 'nav-trigger', { active: stichtingActive }]} aria-haspopup="true" aria-expanded="false">
+          Stichtingen
+          <svg class="caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="dropdown" role="menu">
+          {stichtingen.map((s) => (
+            <a href={s.href} role="menuitem" class:list={['dd-link', { active: active === s.key }]}>
+              <span class="dd-label">{s.label}</span>
+              <span class="dd-sub">{s.sub}</span>
+            </a>
+          ))}
+        </div>
+      </div>
     </nav>
 
     <div class="actions">
@@ -55,6 +78,13 @@ const nav = [
       {nav.map((item) => (
         <a href={item.href} class:list={['m-link', { active: active === item.key }]}>
           {item.label}
+        </a>
+      ))}
+      <div class="m-group-label">Stichtingen</div>
+      {stichtingen.map((s) => (
+        <a href={s.href} class:list={['m-link', 'm-sublink', { active: active === s.key }]}>
+          {s.label}
+          <span class="m-sub">{s.sub}</span>
         </a>
       ))}
     </nav>
@@ -126,6 +156,69 @@ const nav = [
     background: rgba(149, 27, 129, .08);
   }
 
+  /* Stichtingen-dropdown (desktop) */
+  .has-menu { position: relative; }
+  .nav-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font: inherit;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .nav-trigger .caret { transition: transform .18s ease; }
+  .has-menu:hover .nav-trigger,
+  .has-menu:focus-within .nav-trigger { color: var(--ink); }
+  .has-menu:hover .caret,
+  .has-menu:focus-within .caret { transform: rotate(180deg); }
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 250px;
+    background: var(--wit);
+    border: 1px solid rgba(41, 35, 92, .12);
+    border-radius: 16px;
+    box-shadow: 0 22px 48px -20px rgba(41, 35, 92, .45);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity .16s ease, transform .16s ease, visibility .16s;
+  }
+  /* onzichtbare brug zodat de muis de gap niet "verliest" */
+  .has-menu::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 250px;
+    height: 10px;
+  }
+  .has-menu:hover .dropdown,
+  .has-menu:focus-within .dropdown,
+  .has-menu.open .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .dd-link {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 11px;
+  }
+  .dd-link:hover { background: var(--paper); }
+  .dd-link.active { background: rgba(149, 27, 129, .08); }
+  .dd-label { font-weight: 700; font-size: 15px; color: var(--ink); }
+  .dd-sub { font-size: 12.5px; color: var(--tekst-dim); margin-top: 1px; }
+
   .actions {
     display: flex;
     align-items: center;
@@ -190,6 +283,16 @@ const nav = [
     border-bottom: 1px solid rgba(41, 35, 92, .06);
   }
   .m-link.active { color: var(--ink); font-weight: 800; background: rgba(149, 27, 129, .08); }
+  .m-group-label {
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--tekst-dim);
+    padding: 16px 8px 6px;
+  }
+  .m-sublink { display: flex; flex-direction: column; gap: 2px; padding-left: 18px; }
+  .m-sublink .m-sub { font-size: 13px; font-weight: 600; color: var(--tekst-dim); }
   .m-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
   .m-login {
     text-decoration: none;
@@ -231,4 +334,27 @@ const nav = [
     const open = menu?.classList.toggle('open');
     btn.setAttribute('aria-expanded', String(Boolean(open)));
   });
+
+  // Stichtingen-dropdown: houd aria-expanded gelijk aan de hover/focus-staat
+  // (het openen zelf gebeurt via CSS) en sta klikken/Escape toe.
+  const hasMenu = header?.querySelector('.has-menu');
+  const trigger = hasMenu?.querySelector('.nav-trigger');
+  if (hasMenu && trigger) {
+    const sync = (open: boolean) => trigger.setAttribute('aria-expanded', String(open));
+    hasMenu.addEventListener('mouseenter', () => sync(true));
+    hasMenu.addEventListener('mouseleave', () => sync(false));
+    hasMenu.addEventListener('focusin', () => sync(true));
+    hasMenu.addEventListener('focusout', () => sync(false));
+    trigger.addEventListener('click', () => {
+      const open = hasMenu.classList.toggle('open');
+      sync(open);
+    });
+    hasMenu.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Escape') {
+        hasMenu.classList.remove('open');
+        sync(false);
+        (trigger as HTMLElement).blur();
+      }
+    });
+  }
 </script>

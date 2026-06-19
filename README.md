@@ -26,16 +26,25 @@ src/
     NieuwsCard.astro        PrijsCard.astro
     PageHero.astro          InfoBlock.astro
   pages/
-    index.astro            over-ons.astro    lidmaatschap.astro
-    agenda.astro           leden.astro       nieuws.astro
-    fonds.astro            contact.astro     bedrijventerreinen.astro
+    index.astro            over-ons.astro       lidmaatschap.astro
+    agenda.astro           leden.astro          nieuws.astro
+    contact.astro          privacy.astro
+    bedrijventerreinen.astro   ondernemersfonds.astro   fonds.astro
 public/img/                # afbeeldingen + logo
+public/docs/               # PDF's & formulieren (Parkmanagement; SOW nog aanvullen)
 ```
+
+De drie partner-stichtingen/fondsen staan in het menu gegroepeerd onder een
+**Stichtingen**-dropdown:
+- `bedrijventerreinen.astro` — Parkmanagement Wolvega (SPBW)
+- `ondernemersfonds.astro` — Ondernemersfonds Weststellingwerf (SOW), reclamebelasting
+- `fonds.astro` — Stimuleringsfonds *Ondernemend Veuruut* (nieuw, eind 2026)
 
 ## Status
 
-- ✅ **Alle 8 pagina's** geïmplementeerd: Home, Over ons, Lidmaatschap, Agenda,
-  Leden (smoelenboek), Nieuws, Fonds, Contact.
+- ✅ **Alle pagina's** geïmplementeerd: Home, Over ons, Lidmaatschap, Agenda,
+  Leden (smoelenboek), Nieuws, Contact, Privacy en de drie stichtingen-pagina's
+  (Bedrijventerreinen, Ondernemersfonds, Stimuleringsfonds).
 - ✅ Gedeelde `SiteHeader` + `SiteFooter` + `Base`-layout + design-tokens.
 - ✅ Herbruikbare componenten: `PageHero`, `InfoBlock`, `KrachtCard`, `EventCard`,
   `NieuwsCard`, `PrijsCard`.
