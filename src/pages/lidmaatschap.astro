@@ -2,26 +2,10 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import PrijsCard from '../components/PrijsCard.astro';
+import instellingen from '../data/instellingen.json';
+import pakkettenData from '../data/pakketten.json';
 
-const SIGNUP = 'https://app.clubcollect.com/signup/249679c4-b120-42ac-8221-ab1bd5cccc36';
-
-const basisFeatures = [
-  'Belangenbehartiging — jouw stem richting gemeente en provincie',
-  'Stemrecht — meebeslissen tijdens de ALV',
-  'Wekelijkse nieuwsbrief met regionaal nieuws',
-  'Collectieve voordelen via mantelcontracten (Parkmanagement)',
-];
-const netwerkFeatures = [
-  'Gratis toegang tot alle borrels, bedrijfsbezoeken en het jaarfeest',
-  'Toegang tot de netwerk-app (ledenlijst)',
-  '1× per jaar een zakenrelatie meenemen',
-];
-const groeiFeatures = [
-  'PR-service: wij interviewen je en plaatsen een artikel op site & socials (1× p.j.)',
-  'Kennis Academy: 2 exclusieve workshops (o.a. AI, marketing, HR)',
-  'Expert-status: label "Uitgelicht" op je profiel',
-  'Social Boost: wij delen jouw nieuws op onze kanalen',
-];
+const SIGNUP = instellingen.aanmeldUrl;
 
 const stappen = [
   { n: '1', title: 'Vul het formulier in', text: 'Kies je pakket en vul je bedrijfsgegevens in. Duurt twee minuten.' },
@@ -34,23 +18,18 @@ const stappen = [
   <PageHero
     kicker="Lidmaatschap"
     title="Kies wat bij jouw bedrijf past"
-    lead="Drie lidmaatschappen, één doel: samen sterker ondernemen. Bedragen per jaar, exclusief btw."
+    lead={pakkettenData.intro}
     center maxWidth={880} />
 
   {/* PRICING */}
   <section class="prijs-grid">
-    <PrijsCard
-      tier="Basis" price="€75" blurb="Voor wie de regio steunt en profiteert van een sterk ondernemersklimaat."
-      ctaLabel="Word lid" ctaHref={SIGNUP} ctaExternal features={basisFeatures} />
-    <PrijsCard
-      tier="Connect" price="€325" blurb="Voor wie actief wil verbinden en zaken wil doen tijdens onze events."
-      ctaLabel="Word Connect-lid" ctaHref={SIGNUP} ctaExternal featured
-      featuresIntro="Alles uit Basis, plus:" features={netwerkFeatures} />
-    <PrijsCard
-      tier="Groei" price="€450" period="/ jaar (introductietarief)"
-      blurb="Voor wie marketing, kennis en zichtbaarheid wil uitbesteden."
-      ctaLabel="Word lid" ctaHref={SIGNUP} ctaExternal
-      featuresIntro="Alles uit Connect, plus:" features={groeiFeatures} />
+    {pakkettenData.pakketten.map((p) => (
+      <PrijsCard
+        tier={p.naam} price={p.prijs} period={p.periode || undefined}
+        blurb={p.blurb}
+        ctaLabel={p.ctaLabel} ctaHref={SIGNUP} ctaExternal featured={p.featured}
+        featuresIntro={p.featuresIntro || undefined} features={p.features} />
+    ))}
   </section>
 
   {/* STAPPEN */}

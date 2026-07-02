@@ -1,8 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import instellingen from '../data/instellingen.json';
 
-const LEDENPORTAAL = 'https://app.clubcollect.com/ma/0e1183ceb4f5c970bb0bb3080204adbabc8fe53c';
+const LEDENPORTAAL = instellingen.ledenportaalUrl;
 ---
 
 <Base title="Contact — Ondernemend Weststellingwerf">
@@ -31,7 +32,7 @@ const LEDENPORTAAL = 'https://app.clubcollect.com/ma/0e1183ceb4f5c970bb0bb308020
           </div>
           <div>
             <div class="info-t">E-mail</div>
-            <a href="mailto:info@ondernemendweststellingwerf.nl" class="info-link break">info@ondernemendweststellingwerf.nl</a>
+            <a href={`mailto:${instellingen.email}`} class="info-link break">{instellingen.email}</a>
           </div>
         </div>
         <div class="info-row last">

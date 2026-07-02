@@ -1,6 +1,7 @@
 ---
 // Gedeelde donkere footer.
-const LEDENPORTAAL = 'https://app.clubcollect.com/ma/0e1183ceb4f5c970bb0bb3080204adbabc8fe53c';
+import instellingen from '../data/instellingen.json';
+const LEDENPORTAAL = instellingen.ledenportaalUrl;
 const year = new Date().getFullYear();
 ---
 
@@ -16,7 +17,7 @@ const year = new Date().getFullYear();
           </span>
         </div>
         <p class="blurb">Van, voor en door ondernemers. Samen bouwen we aan een sterk en vitaal Weststellingwerf.</p>
-        <a href="https://stiekmtrots.nl" target="_blank" rel="noopener" class="stiekm">
+        <a href={instellingen.stiekmTrotsUrl} target="_blank" rel="noopener" class="stiekm">
           Stiekm Trots op Weststellingwerf
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
         </a>
@@ -46,9 +47,8 @@ const year = new Date().getFullYear();
       <div>
         <div class="col-title">Contact</div>
         <ul class="links plain">
-          <li>Het Ondernemershuis</li>
-          <li>Wolvega</li>
-          <li><a href="mailto:info@ondernemendweststellingwerf.nl" class="email">info@ondernemendweststellingwerf.nl</a></li>
+          {instellingen.adresRegels.map((r) => <li>{r}</li>)}
+          <li><a href={`mailto:${instellingen.email}`} class="email">{instellingen.email}</a></li>
         </ul>
       </div>
     </div>

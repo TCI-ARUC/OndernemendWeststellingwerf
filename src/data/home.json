@@ -1,0 +1,63 @@
+{
+  "hero": {
+    "badge": "Van, voor en door ondernemers",
+    "titel": "Waar ondernemend Weststellingwerf",
+    "titelAccent": "samenkomt.",
+    "lead": "Netwerk, regiomarketing, belangenbehartiging én economische groei — gebundeld in één sterke club. Samen bouwen we aan een vitaal Weststellingwerf, het meest onafhankelijke stukje Friesland.",
+    "ctaLabel": "Word lid — vanaf €75",
+    "fotoAlt": "Ondernemers tijdens de Haringparty in Weststellingwerf",
+    "stats": [
+      { "num": "", "label": "leden & groeiend" },
+      { "num": "2018", "label": "samen sterker sindsdien" },
+      { "num": "4", "label": "krachten, één club" }
+    ]
+  },
+  "krachtenIntro": {
+    "kicker": "Eén bijzondere club",
+    "titel": "Vier krachten, gebundeld voor jou",
+    "tekst": "We zijn netwerk én ondernemersvereniging, aanjager én belangenbehartiger — een mini-MKB Nederland voor de regio. Zo werkt dat in jouw voordeel."
+  },
+  "krachten": [
+    {
+      "titel": "Netwerk & agenda",
+      "titelExtra": "",
+      "badge": "",
+      "tekst": "Ontmoet, spar en groei tijdens borrels, bedrijfsbezoeken en workshops. In één klik aanmelden, plus een smoelenboek dat je écht verder helpt — hoe meer betrokkenheid, hoe sterker we staan.",
+      "linkLabel": "Bekijk de agenda",
+      "href": "/agenda"
+    },
+    {
+      "titel": "Regiomarketing & aanjagen",
+      "titelExtra": "",
+      "badge": "",
+      "tekst": "Samen zetten we de regio op de kaart — via Stiekm Trots, festivals en gezamenlijke acties. En we jagen lokale initiatieven aan voor levendige centra en vitale bedrijventerreinen.",
+      "linkLabel": "Zie wat er speelt",
+      "href": "/nieuws"
+    },
+    {
+      "titel": "Belangenbehartiging",
+      "titelExtra": "",
+      "badge": "",
+      "tekst": "Met elkaar hebben we een bredere blik én meer kracht. Eén vaste gesprekspartner voor gemeente, regio en provincie — van bereikbaarheid en infrastructuur tot een gezond ondernemersklimaat.",
+      "linkLabel": "Ons partnerschap",
+      "href": "/over-ons"
+    },
+    {
+      "titel": "Stimuleringsfonds",
+      "titelExtra": "Ondernemend Veuruut",
+      "badge": "Eind 2026",
+      "tekst": "Een steun in de rug voor jouw innovatieve idee. Straks check je in één minuut of je in aanmerking komt.",
+      "linkLabel": "Hou het in de gaten",
+      "href": "/fonds"
+    }
+  ],
+  "smoelenboek": {
+    "kicker": "Het smoelenboek",
+    "titelNaAantal": "ondernemers die je wílt kennen",
+    "lead": "Van de bouw tot de horeca, van Wolvega tot Noordwolde. Straks volledig en automatisch gekoppeld aan onze ledenadministratie — altijd actueel."
+  },
+  "nieuwsbrief": {
+    "titel": "Blijf op de hoogte",
+    "lead": "Nieuws, acties en bijeenkomsten — elke week in je inbox. Geen ruis, wel waarde."
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "heroLead": "Ondernemend Weststellingwerf is een bijzondere club: netwerk én ondernemersvereniging, aanjager én belangenbehartiger. We bundelen krachten zodat ondernemen in onze gemeente sterker, leuker en toekomstbestendiger wordt.",
+  "verhaal": {
+    "titel": "Hoe we zijn ontstaan",
+    "paragrafen": [
+      "In 2018 staken bestuursleden van Platform Recreatie & Toerisme, WOW, CCW, OVN, SOW en Parkmanagement de koppen bij elkaar. Ze hadden samen een paar duidelijke wensen: een facilitair bureau om plannen écht uitgevoerd te krijgen, en Weststellingwerf steviger op de kaart zetten.",
+      "We merkten al snel dat we meer overeenkomsten dan verschillen hadden — en dat juist die verschillen de samenwerking waardevol maakten. Omdat we volledig gelijkwaardig georganiseerd zijn, was de stap naar één sterke club logisch. En die is er nu."
+    ]
+  },
+  "blokken": [
+    {
+      "titel": "Stiekm Trots",
+      "tekst": "Een rebelse aanpak om het onbekende Weststellingwerf onder de aandacht te brengen. Met een eigen consumentenwebsite, onlinemarketing en acties zetten we de regio in de spotlight — en groeiden we uit tot bredere gesprekspartner van de gemeente."
+    },
+    {
+      "titel": "Krachten bundelen",
+      "tekst": "Eén voorzitter, één penningmeester, één activiteitenkalender — stoppen met dubbel werk. Door samen op te trekken houden we tijd over voor wat er écht toe doet: ondernemers verder helpen."
+    }
+  ],
+  "krachten": [
+    { "titel": "Netwerk & agenda", "tekst": "Ontmoeten, sparren en groeien — borrels, bedrijfsbezoeken, workshops en een gala." },
+    { "titel": "Regiomarketing & aanjagen", "tekst": "De regio op de kaart via Stiekm Trots, festivals en lokale initiatieven." },
+    { "titel": "Belangenbehartiging", "tekst": "Eén vaste, stevige stem richting gemeente, regio en provincie." },
+    { "titel": "Stimuleringsfonds", "tekst": "Straks: financiële steun voor innovatieve ideeën uit de regio." }
+  ],
+  "cta": {
+    "titel": "Word jij ook lid?",
+    "tekstNaAantal": "ondernemers. Hoe groter ons netwerk, hoe zwaarder onze stem.",
+    "knop": "Bekijk het lidmaatschap"
+  }
+}

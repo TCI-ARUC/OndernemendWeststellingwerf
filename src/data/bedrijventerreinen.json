@@ -1,0 +1,54 @@
+{
+  "contact": {
+    "email": "info@parkmanagementwolvega.nl",
+    "telefoon": "06-21 902 272",
+    "telefoonLink": "+31621902272",
+    "contactpersoon": "Marcus Dubling"
+  },
+  "terreinen": ["Schipsloot", "Noord-West", "De Plantage", "Heerendeel", "Van der Valk (deels)"],
+  "diensten": [
+    {
+      "titel": "Veiligheid & KVO-B",
+      "tekst": "Collectieve beveiliging via G4S, anoniem misdaad melden en korte lijnen met de wijkagent en toezichthouders/Boa. Het Keurmerk Veilig Ondernemen borgt dat je hier veilig onderneemt."
+    },
+    {
+      "titel": "Infrastructuur & onderhoud",
+      "tekst": "We bewaken het onderhoud van de openbare ruimte, de bewegwijzering en goed zichtbare huisnummers — zodat de terreinen er verzorgd bij liggen en goed vindbaar zijn."
+    },
+    {
+      "titel": "Collectieve inkoop",
+      "tekst": "Samen sterker inkopen: gezamenlijke afvalinzameling via Renewi (met een flinke CO₂-besparing) en gedeelde veiligheidsmiddelen. Schaalvoordeel voor iedereen op het terrein."
+    },
+    {
+      "titel": "Digitaal & ondersteuning",
+      "tekst": "Een Cyber Security IT-scan en de MKB Cyber Alarmcentrale houden je digitaal weerbaar. Daarnaast ondersteuning bij BHV en de RI&E (risico-inventarisatie & -evaluatie)."
+    }
+  ],
+  "doelen": [
+    "In stand houden van de kwaliteit van de bedrijventerreinen",
+    "Realisatie van duurzaamheid met blijvende functionaliteit",
+    "Een hoog voorzieningenniveau behouden",
+    "Representativiteit van de terreinen borgen",
+    "Behoud van de waarde van het onroerend goed",
+    "Besparingen op de inkoop van collectieve diensten"
+  ],
+  "documenten": [
+    { "label": "Jaarverslag 2025", "meta": "PDF", "href": "/docs/parkmanagement/jaarverslag-2025.pdf" },
+    { "label": "KVO-B-certificaat 2025–2028", "meta": "PDF", "href": "/docs/parkmanagement/kvo-b-certificaat-2025-2028.pdf" },
+    { "label": "KVO-B-auditrapportage 2025", "meta": "PDF", "href": "/docs/parkmanagement/kvo-b-auditrapportage-2025.pdf" }
+  ],
+  "formulieren": [
+    { "label": "Interesse deelname collectief (bewegwijzering, afval &/of beveiliging)", "meta": "Word", "href": "/docs/parkmanagement/formulier-interesse-deelname-collectief.doc" },
+    { "label": "Aanmelden afval &/of beveiliging", "meta": "Word", "href": "/docs/parkmanagement/formulier-aanmelden-afval-beveiliging.doc" },
+    { "label": "Aanmelden / wijzigen bewegwijzering", "meta": "Word", "href": "/docs/parkmanagement/formulier-aanmelden-bewegwijzering.doc" }
+  ],
+  "bestuur": [
+    { "naam": "Marck Hiemstra", "rol": "Duo-voorzitter — European Aerosols" },
+    { "naam": "Willem Feenstra", "rol": "Duo-voorzitter — Carrosseriefabriek Heiwo" },
+    { "naam": "Marcus Dubling", "rol": "Secretaris — afval, beveiliging en KVO-B" },
+    { "naam": "John Maijer", "rol": "Bewegwijzering" },
+    { "naam": "Johan Helmich", "rol": "Afval, beveiliging en KVO-B — European Aerosols" },
+    { "naam": "Arjen Witteveen", "rol": "Bestuurslid — Vitablend" },
+    { "naam": "Désiree Dijkstra", "rol": "Communicatie & ondersteuning — De Verbinding" }
+  ]
+}

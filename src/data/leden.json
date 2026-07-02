@@ -1,0 +1,11 @@
+{
+  "leden": [
+    { "initialen": "JdJ", "kleur": "magenta", "naam": "Jumbo de Jong", "branche": "Retail", "pakket": "Groei" },
+    { "initialen": "DH", "kleur": "teal", "naam": "Dragt Houtkonstruktie", "branche": "Bouw", "pakket": "Groei" },
+    { "initialen": "CI", "kleur": "oranje", "naam": "Cura ICT", "branche": "ICT & zakelijk", "pakket": "Groei" },
+    { "initialen": "ZvI", "kleur": "rood", "naam": "Zaak van Interactie", "branche": "Communicatie", "pakket": "Groei" },
+    { "initialen": "TBN", "kleur": "ink-500", "naam": "TBN Consultancy", "branche": "Advies", "pakket": "Groei" },
+    { "initialen": "DM", "kleur": "teal-tekst", "naam": "De Markestee", "branche": "Horeca", "pakket": "Connect" },
+    { "initialen": "RO", "kleur": "magenta", "naam": "Rudolf Ophof", "branche": "Zakelijk", "pakket": "Connect" }
+  ]
+}

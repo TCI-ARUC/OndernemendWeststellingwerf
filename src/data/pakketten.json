@@ -1,0 +1,49 @@
+{
+  "intro": "Drie lidmaatschappen, één doel: samen sterker ondernemen. Bedragen per jaar, exclusief btw.",
+  "pakketten": [
+    {
+      "naam": "Basis",
+      "prijs": "€75",
+      "periode": "",
+      "blurb": "Voor wie de regio steunt en profiteert van een sterk ondernemersklimaat.",
+      "ctaLabel": "Word lid",
+      "featured": false,
+      "featuresIntro": "",
+      "features": [
+        "Belangenbehartiging — jouw stem richting gemeente en provincie",
+        "Stemrecht — meebeslissen tijdens de ALV",
+        "Wekelijkse nieuwsbrief met regionaal nieuws",
+        "Collectieve voordelen via mantelcontracten (Parkmanagement)"
+      ]
+    },
+    {
+      "naam": "Connect",
+      "prijs": "€325",
+      "periode": "",
+      "blurb": "Voor wie actief wil verbinden en zaken wil doen tijdens onze events.",
+      "ctaLabel": "Word Connect-lid",
+      "featured": true,
+      "featuresIntro": "Alles uit Basis, plus:",
+      "features": [
+        "Gratis toegang tot alle borrels, bedrijfsbezoeken en het jaarfeest",
+        "Toegang tot de netwerk-app (ledenlijst)",
+        "1× per jaar een zakenrelatie meenemen"
+      ]
+    },
+    {
+      "naam": "Groei",
+      "prijs": "€450",
+      "periode": "/ jaar (introductietarief)",
+      "blurb": "Voor wie marketing, kennis en zichtbaarheid wil uitbesteden.",
+      "ctaLabel": "Word lid",
+      "featured": false,
+      "featuresIntro": "Alles uit Connect, plus:",
+      "features": [
+        "PR-service: wij interviewen je en plaatsen een artikel op site & socials (1× p.j.)",
+        "Kennis Academy: 2 exclusieve workshops (o.a. AI, marketing, HR)",
+        "Expert-status: label \"Uitgelicht\" op je profiel",
+        "Social Boost: wij delen jouw nieuws op onze kanalen"
+      ]
+    }
+  ]
+}

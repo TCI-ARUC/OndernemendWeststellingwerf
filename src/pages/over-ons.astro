@@ -1,41 +1,43 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import instellingen from '../data/instellingen.json';
+import overOns from '../data/over-ons.json';
 
-const krachten = [
-  { accent: 'var(--magenta)', bg: 'rgba(149,27,129,.10)', color: 'var(--magenta)', title: 'Netwerk & agenda', text: 'Ontmoeten, sparren en groeien — borrels, bedrijfsbezoeken, workshops en een gala.', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
-  { accent: 'var(--oranje)', bg: 'rgba(240,144,0,.13)', color: 'var(--oranje-tekst)', title: 'Regiomarketing & aanjagen', text: 'De regio op de kaart via Stiekm Trots, festivals en lokale initiatieven.', icon: '<path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>' },
-  { accent: 'var(--teal)', bg: 'rgba(22,168,146,.12)', color: 'var(--teal-tekst)', title: 'Belangenbehartiging', text: 'Eén vaste, stevige stem richting gemeente, regio en provincie.', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
-  { accent: 'var(--rood)', bg: 'rgba(200,32,42,.10)', color: 'var(--rood)', title: 'Stimuleringsfonds', text: 'Straks: financiële steun voor innovatieve ideeën uit de regio.', icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>' },
+// Teksten uit over-ons.json; vormgeving (kleur/icoon) hoort bij de code.
+const krachtStijlen = [
+  { bg: 'rgba(149,27,129,.10)', color: 'var(--magenta)', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  { bg: 'rgba(240,144,0,.13)', color: 'var(--oranje-tekst)', icon: '<path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>' },
+  { bg: 'rgba(22,168,146,.12)', color: 'var(--teal-tekst)', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
+  { bg: 'rgba(200,32,42,.10)', color: 'var(--rood)', icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>' },
 ];
+const krachten = overOns.krachten.map((k, i) => ({ ...k, ...krachtStijlen[i] }));
+const blokAccenten = ['var(--oranje)', 'var(--teal)'];
 ---
 
 <Base title="Over ons — Ondernemend Weststellingwerf" active="overons">
   <PageHero
     kicker="Over ons"
     title="Van, voor en door ondernemers"
-    lead="Ondernemend Weststellingwerf is een bijzondere club: netwerk én ondernemersvereniging, aanjager én belangenbehartiger. We bundelen krachten zodat ondernemen in onze gemeente sterker, leuker en toekomstbestendiger wordt."
+    lead={overOns.heroLead}
     fan maxWidth={880} />
 
   {/* STORY */}
   <section class="wrap-880 pad">
     <div class="card story">
-      <h2>Hoe we zijn ontstaan</h2>
-      <p>In 2018 staken bestuursleden van Platform Recreatie &amp; Toerisme, WOW, CCW, OVN, SOW en Parkmanagement de koppen bij elkaar. Ze hadden samen een paar duidelijke wensen: een facilitair bureau om plannen écht uitgevoerd te krijgen, en Weststellingwerf steviger op de kaart zetten.</p>
-      <p>We merkten al snel dat we meer overeenkomsten dan verschillen hadden — en dat juist die verschillen de samenwerking waardevol maakten. Omdat we volledig gelijkwaardig georganiseerd zijn, was de stap naar één sterke club logisch. En die is er nu.</p>
+      <h2>{overOns.verhaal.titel}</h2>
+      {overOns.verhaal.paragrafen.map((p) => <p>{p}</p>)}
     </div>
   </section>
 
   {/* TWO BLOCKS */}
   <section class="wrap-880 two">
-    <div class="card block" style="border-top:4px solid var(--oranje)">
-      <h3>Stiekm Trots</h3>
-      <p>Een rebelse aanpak om het onbekende Weststellingwerf onder de aandacht te brengen. Met een eigen consumentenwebsite, onlinemarketing en acties zetten we de regio in de spotlight — en groeiden we uit tot bredere gesprekspartner van de gemeente.</p>
-    </div>
-    <div class="card block" style="border-top:4px solid var(--teal)">
-      <h3>Krachten bundelen</h3>
-      <p>Eén voorzitter, één penningmeester, één activiteitenkalender — stoppen met dubbel werk. Door samen op te trekken houden we tijd over voor wat er écht toe doet: ondernemers verder helpen.</p>
-    </div>
+    {overOns.blokken.map((b, i) => (
+      <div class="card block" style={`border-top:4px solid ${blokAccenten[i % blokAccenten.length]}`}>
+        <h3>{b.titel}</h3>
+        <p>{b.tekst}</p>
+      </div>
+    ))}
   </section>
 
   {/* VIER KRACHTEN */}
@@ -50,8 +52,8 @@ const krachten = [
           <div class="icon" style={`background:${k.bg};color:${k.color}`}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={k.icon} />
           </div>
-          <h3>{k.title}</h3>
-          <p>{k.text}</p>
+          <h3>{k.titel}</h3>
+          <p>{k.tekst}</p>
         </div>
       ))}
     </div>
@@ -62,9 +64,9 @@ const krachten = [
     <div class="cta-band">
       <div class="cta-fan" aria-hidden="true"></div>
       <div class="cta-inner">
-        <h2>Word jij ook lid?</h2>
-        <p>Sluit je aan bij 150+ ondernemers. Hoe groter ons netwerk, hoe zwaarder onze stem.</p>
-        <a href="/lidmaatschap" class="cta-btn">Bekijk het lidmaatschap
+        <h2>{overOns.cta.titel}</h2>
+        <p>Sluit je aan bij {instellingen.ledenLabel} {overOns.cta.tekstNaAantal}</p>
+        <a href="/lidmaatschap" class="cta-btn">{overOns.cta.knop}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>

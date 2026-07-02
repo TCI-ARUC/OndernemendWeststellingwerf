@@ -6,6 +6,10 @@ import EventCard from '../components/EventCard.astro';
 import NieuwsCard from '../components/NieuwsCard.astro';
 import PrijsCard from '../components/PrijsCard.astro';
 import { agendaStijl, nieuwsKleur, dag, maandKort } from '../lib/taxonomy';
+import instellingen from '../data/instellingen.json';
+import home from '../data/home.json';
+import pakkettenData from '../data/pakketten.json';
+import ledenData from '../data/leden.json';
 
 // --- Agenda: de eerstvolgende drie items uit de collectie (verlopen events vallen af) ---
 const vandaag = new Date();
@@ -33,33 +37,21 @@ const events = (await getCollection('agenda'))
 // Eerstvolgend event voor de chip bij de hero-foto.
 const eerstvolgend = events[0];
 
-// --- Smoelenboek-teaser (later automatisch uit de ledenadministratie) ---
-const leden = [
-  { initials: 'JdJ', bg: 'var(--magenta)', name: 'Jumbo de Jong', branche: 'Retail' },
-  { initials: 'DH', bg: 'var(--teal)', name: 'Dragt Houtkonstruktie', branche: 'Bouw' },
-  { initials: 'CI', bg: 'var(--oranje)', name: 'Cura ICT', branche: 'ICT' },
-  { initials: 'ZvI', bg: 'var(--rood)', name: 'Zaak van Interactie', branche: 'Communicatie' },
-  { initials: 'TBN', bg: 'var(--ink-500)', name: 'TBN Consultancy', branche: 'Advies' },
-];
+// --- Smoelenboek-teaser: de eerste vijf leden uit de data (later automatisch uit de ledenadministratie) ---
+const leden = ledenData.leden.slice(0, 5);
+const ledenRest = instellingen.ledenTotaal - leden.length;
 
-// --- Lidmaatschap ---
-const basisFeatures = [
-  'Belangenbehartiging — jouw stem richting gemeente en provincie',
-  'Stemrecht — meebeslissen tijdens de ALV',
-  'Wekelijkse nieuwsbrief met regionaal nieuws',
-  'Collectieve voordelen via mantelcontracten',
+// --- Hero-statistieken: leeg num-veld valt terug op het ledenaantal uit instellingen ---
+const stats = home.hero.stats.map((s) => ({ ...s, num: s.num || instellingen.ledenLabel }));
+
+// --- Vier krachten: teksten uit home.json, vormgeving (kleur/icoon) hoort bij de code ---
+const krachtStijlen = [
+  { accent: 'var(--magenta)', iconBg: 'rgba(149,27,129,.10)', iconColor: 'var(--magenta)', linkColor: 'var(--magenta)', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  { accent: 'var(--oranje)', iconBg: 'rgba(240,144,0,.13)', iconColor: 'var(--oranje-tekst)', linkColor: 'var(--oranje-tekst)', icon: '<path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>' },
+  { accent: 'var(--teal)', iconBg: 'rgba(22,168,146,.12)', iconColor: 'var(--teal-tekst)', linkColor: 'var(--teal-tekst)', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
+  { accent: 'var(--rood)', iconBg: 'rgba(200,32,42,.10)', iconColor: 'var(--rood)', linkColor: 'var(--rood)', icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>' },
 ];
-const netwerkFeatures = [
-  'Gratis toegang tot alle borrels, bedrijfsbezoeken en het jaarfeest',
-  'Toegang tot de netwerk-app (ledenlijst)',
-  '1× per jaar een zakenrelatie meenemen',
-];
-const groeiFeatures = [
-  'PR-service: artikel over jouw bedrijf op site & socials',
-  'Kennis Academy: 2 exclusieve workshops',
-  'Expert-status op je profiel',
-  'Social Boost van jouw nieuws',
-];
+const krachten = home.krachten.map((k, i) => ({ ...k, ...krachtStijlen[i] }));
 
 // --- Nieuws: de drie meest recente artikelen uit de collectie ---
 const nieuws = (await getCollection('nieuws'))
@@ -86,29 +78,30 @@ const nieuws = (await getCollection('nieuws'))
             <span style="background:var(--oranje)"></span>
             <span style="background:var(--teal)"></span>
           </span>
-          Van, voor en door ondernemers
+          {home.hero.badge}
         </div>
-        <h1>Waar ondernemend Weststellingwerf <span class="accent">samenkomt.</span></h1>
-        <p class="lead">Netwerk, regiomarketing, belangenbehartiging én economische groei — gebundeld in één sterke club. Samen bouwen we aan een vitaal Weststellingwerf, het meest onafhankelijke stukje Friesland.</p>
+        <h1>{home.hero.titel} <span class="accent">{home.hero.titelAccent}</span></h1>
+        <p class="lead">{home.hero.lead}</p>
         <div class="hero-cta">
-          <a href="/lidmaatschap" class="btn-primary">Word lid — vanaf €75
+          <a href="/lidmaatschap" class="btn-primary">{home.hero.ctaLabel}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
           <a href="#krachten" class="btn-ghost">Wat we doen</a>
         </div>
         <div class="stats">
-          <div><div class="num">150+</div><div class="lbl">leden &amp; groeiend</div></div>
-          <div class="divider"></div>
-          <div><div class="num">2018</div><div class="lbl">samen sterker sindsdien</div></div>
-          <div class="divider"></div>
-          <div><div class="num">4</div><div class="lbl">krachten, één club</div></div>
+          {stats.map((s, i) => (
+            <>
+              {i > 0 && <div class="divider"></div>}
+              <div><div class="num">{s.num}</div><div class="lbl">{s.label}</div></div>
+            </>
+          ))}
         </div>
       </div>
 
       <div class="hero-visual">
         <div class="fan" aria-hidden="true"></div>
         <div class="photo">
-          <img src="/img/hero.jpg" alt="Ondernemers tijdens de Haringparty in Weststellingwerf" class="hero-photo" width="1200" height="798" />
+          <img src="/img/hero.jpg" alt={home.hero.fotoAlt} class="hero-photo" width="1200" height="798" />
         </div>
         {eerstvolgend && (
           <div class="chip">
@@ -129,42 +122,20 @@ const nieuws = (await getCollection('nieuws'))
   {/* ===== VIER KRACHTEN ===== */}
   <section id="krachten" class="ow-container block">
     <div class="intro-narrow">
-      <div class="kicker">Eén bijzondere club</div>
-      <h2>Vier krachten, gebundeld voor jou</h2>
-      <p>We zijn netwerk én ondernemersvereniging, aanjager én belangenbehartiger — een mini-MKB Nederland voor de regio. Zo werkt dat in jouw voordeel.</p>
+      <div class="kicker">{home.krachtenIntro.kicker}</div>
+      <h2>{home.krachtenIntro.titel}</h2>
+      <p>{home.krachtenIntro.tekst}</p>
     </div>
     <div class="krachten-grid">
-      <KrachtCard
-        accent="var(--magenta)" iconBg="rgba(149,27,129,.10)" iconColor="var(--magenta)"
-        title="Netwerk & agenda"
-        text="Ontmoet, spar en groei tijdens borrels, bedrijfsbezoeken en workshops. In één klik aanmelden, plus een smoelenboek dat je écht verder helpt — hoe meer betrokkenheid, hoe sterker we staan."
-        linkLabel="Bekijk de agenda" linkColor="var(--magenta)" href="/agenda">
-        <svg slot="icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      </KrachtCard>
-
-      <KrachtCard
-        accent="var(--oranje)" iconBg="rgba(240,144,0,.13)" iconColor="var(--oranje-tekst)"
-        title="Regiomarketing & aanjagen"
-        text="Samen zetten we de regio op de kaart — via Stiekm Trots, festivals en gezamenlijke acties. En we jagen lokale initiatieven aan voor levendige centra en vitale bedrijventerreinen."
-        linkLabel="Zie wat er speelt" linkColor="var(--oranje-tekst)" href="/nieuws">
-        <svg slot="icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
-      </KrachtCard>
-
-      <KrachtCard
-        accent="var(--teal)" iconBg="rgba(22,168,146,.12)" iconColor="var(--teal-tekst)"
-        title="Belangenbehartiging"
-        text="Met elkaar hebben we een bredere blik én meer kracht. Eén vaste gesprekspartner voor gemeente, regio en provincie — van bereikbaarheid en infrastructuur tot een gezond ondernemersklimaat."
-        linkLabel="Ons partnerschap" linkColor="var(--teal-tekst)" href="/over-ons">
-        <svg slot="icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </KrachtCard>
-
-      <KrachtCard
-        accent="var(--rood)" iconBg="rgba(200,32,42,.10)" iconColor="var(--rood)"
-        title="Stimuleringsfonds" titleExtra="Ondernemend Veuruut" badge="Eind 2026"
-        text="Een steun in de rug voor jouw innovatieve idee. Straks check je in één minuut of je in aanmerking komt."
-        linkLabel="Hou het in de gaten" linkColor="var(--rood)" href="/fonds">
-        <svg slot="icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      </KrachtCard>
+      {krachten.map((k) => (
+        <KrachtCard
+          accent={k.accent} iconBg={k.iconBg} iconColor={k.iconColor}
+          title={k.titel} titleExtra={k.titelExtra || undefined} badge={k.badge || undefined}
+          text={k.tekst}
+          linkLabel={k.linkLabel} linkColor={k.linkColor} href={k.href}>
+          <svg slot="icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={k.icon} />
+        </KrachtCard>
+      ))}
     </div>
   </section>
 
@@ -190,9 +161,9 @@ const nieuws = (await getCollection('nieuws'))
       <div class="smoel-fan" aria-hidden="true"></div>
       <div class="smoel-inner">
         <div>
-          <div class="kicker kicker-light">Het smoelenboek</div>
-          <h2 class="smoel-title">150+ ondernemers die je wílt kennen</h2>
-          <p class="smoel-lead">Van de bouw tot de horeca, van Wolvega tot Noordwolde. Straks volledig en automatisch gekoppeld aan onze ledenadministratie — altijd actueel.</p>
+          <div class="kicker kicker-light">{home.smoelenboek.kicker}</div>
+          <h2 class="smoel-title">{instellingen.ledenLabel} {home.smoelenboek.titelNaAantal}</h2>
+          <p class="smoel-lead">{home.smoelenboek.lead}</p>
           <a href="/leden" class="smoel-cta">Bekijk alle leden
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -200,13 +171,13 @@ const nieuws = (await getCollection('nieuws'))
         <div class="smoel-grid">
           {leden.map((l) => (
             <div class="lid">
-              <div class="avatar" style={`background:${l.bg}`}>{l.initials}</div>
-              <div class="lid-name">{l.name}</div>
+              <div class="avatar" style={`background:var(--${l.kleur})`}>{l.initialen}</div>
+              <div class="lid-name">{l.naam}</div>
               <div class="lid-branche">{l.branche}</div>
             </div>
           ))}
           <div class="lid lid-more">
-            <div class="more-num">+145</div>
+            <div class="more-num">+{ledenRest}</div>
             <div class="more-sub">en jij?</div>
           </div>
         </div>
@@ -219,21 +190,16 @@ const nieuws = (await getCollection('nieuws'))
     <div class="intro-center">
       <div class="kicker">Word lid</div>
       <h2>Kies wat bij jouw bedrijf past</h2>
-      <p>Drie lidmaatschappen, één doel: samen sterker ondernemen. Bedragen per jaar, excl. btw.</p>
+      <p>{pakkettenData.intro}</p>
     </div>
     <div class="prijs-grid">
-      <PrijsCard
-        tier="Basis" price="€75" blurb="Voor wie de regio steunt en profiteert van een sterk ondernemersklimaat."
-        ctaLabel="Word lid" ctaHref="/lidmaatschap" features={basisFeatures} />
-      <PrijsCard
-        tier="Connect" price="€325" blurb="Voor wie actief wil verbinden en zaken wil doen tijdens onze events."
-        ctaLabel="Word Connect-lid" ctaHref="/lidmaatschap" featured
-        featuresIntro="Alles uit Basis, plus:" features={netwerkFeatures} />
-      <PrijsCard
-        tier="Groei" price="€450" period="/ jaar (intro)"
-        blurb="Voor wie marketing, kennis en zichtbaarheid wil uitbesteden."
-        ctaLabel="Word lid" ctaHref="/lidmaatschap"
-        featuresIntro="Alles uit Connect, plus:" features={groeiFeatures} />
+      {pakkettenData.pakketten.map((p) => (
+        <PrijsCard
+          tier={p.naam} price={p.prijs} period={p.periode || undefined}
+          blurb={p.blurb}
+          ctaLabel={p.ctaLabel} ctaHref="/lidmaatschap" featured={p.featured}
+          featuresIntro={p.featuresIntro || undefined} features={p.features} />
+      ))}
     </div>
   </section>
 
@@ -259,8 +225,8 @@ const nieuws = (await getCollection('nieuws'))
       <div class="news-fan" aria-hidden="true"></div>
       <div class="news-inner">
         <div>
-          <h2 class="news-title">Blijf op de hoogte</h2>
-          <p class="news-lead">Nieuws, acties en bijeenkomsten — elke week in je inbox. Geen ruis, wel waarde.</p>
+          <h2 class="news-title">{home.nieuwsbrief.titel}</h2>
+          <p class="news-lead">{home.nieuwsbrief.lead}</p>
         </div>
         {/* In productie koppelen aan Laposta. */}
         <form class="news-form" id="newsletter">
