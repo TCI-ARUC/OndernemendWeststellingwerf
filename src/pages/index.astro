@@ -7,8 +7,11 @@ import NieuwsCard from '../components/NieuwsCard.astro';
 import PrijsCard from '../components/PrijsCard.astro';
 import { agendaStijl, nieuwsKleur, dag, maandKort } from '../lib/taxonomy';
 
-// --- Agenda: de eerstvolgende drie items uit de collectie ---
+// --- Agenda: de eerstvolgende drie items uit de collectie (verlopen events vallen af) ---
+const vandaag = new Date();
+vandaag.setHours(0, 0, 0, 0);
 const events = (await getCollection('agenda'))
+  .filter((e) => e.data.date.valueOf() >= vandaag.valueOf())
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf())
   .slice(0, 3)
   .map((e) => {
@@ -26,6 +29,9 @@ const events = (await getCollection('agenda'))
       ctaPrimary: Boolean(e.data.signup),
     };
   });
+
+// Eerstvolgend event voor de chip bij de hero-foto.
+const eerstvolgend = events[0];
 
 // --- Smoelenboek-teaser (later automatisch uit de ledenadministratie) ---
 const leden = [
@@ -91,7 +97,7 @@ const nieuws = (await getCollection('nieuws'))
           <a href="#krachten" class="btn-ghost">Wat we doen</a>
         </div>
         <div class="stats">
-          <div><div class="num">180+</div><div class="lbl">leden &amp; groeiend</div></div>
+          <div><div class="num">150+</div><div class="lbl">leden &amp; groeiend</div></div>
           <div class="divider"></div>
           <div><div class="num">2018</div><div class="lbl">samen sterker sindsdien</div></div>
           <div class="divider"></div>
@@ -104,16 +110,18 @@ const nieuws = (await getCollection('nieuws'))
         <div class="photo">
           <img src="/img/hero.jpg" alt="Ondernemers tijdens de Haringparty in Weststellingwerf" class="hero-photo" width="1200" height="798" />
         </div>
-        <div class="chip">
-          <div class="chip-date">
-            <span class="d">24</span><span class="m">jun</span>
+        {eerstvolgend && (
+          <div class="chip">
+            <div class="chip-date">
+              <span class="d">{eerstvolgend.day}</span><span class="m">{eerstvolgend.month}</span>
+            </div>
+            <div>
+              <div class="chip-kicker">Eerstvolgend event</div>
+              <div class="chip-title">{eerstvolgend.title}</div>
+              <div class="chip-sub">Aanmelden in één klik</div>
+            </div>
           </div>
-          <div>
-            <div class="chip-kicker">Volgende borrel</div>
-            <div class="chip-title">Haringparty</div>
-            <div class="chip-sub">Aanmelden in één klik</div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   </section>
@@ -183,7 +191,7 @@ const nieuws = (await getCollection('nieuws'))
       <div class="smoel-inner">
         <div>
           <div class="kicker kicker-light">Het smoelenboek</div>
-          <h2 class="smoel-title">180+ ondernemers die je wílt kennen</h2>
+          <h2 class="smoel-title">150+ ondernemers die je wílt kennen</h2>
           <p class="smoel-lead">Van de bouw tot de horeca, van Wolvega tot Noordwolde. Straks volledig en automatisch gekoppeld aan onze ledenadministratie — altijd actueel.</p>
           <a href="/leden" class="smoel-cta">Bekijk alle leden
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -198,7 +206,7 @@ const nieuws = (await getCollection('nieuws'))
             </div>
           ))}
           <div class="lid lid-more">
-            <div class="more-num">+175</div>
+            <div class="more-num">+145</div>
             <div class="more-sub">en jij?</div>
           </div>
         </div>
@@ -218,14 +226,14 @@ const nieuws = (await getCollection('nieuws'))
         tier="Basis" price="€75" blurb="Voor wie de regio steunt en profiteert van een sterk ondernemersklimaat."
         ctaLabel="Word lid" ctaHref="/lidmaatschap" features={basisFeatures} />
       <PrijsCard
-        tier="Netwerk" price="€325" blurb="Voor wie actief wil verbinden en zaken wil doen tijdens onze events."
-        ctaLabel="Word netwerklid" ctaHref="/lidmaatschap" featured
+        tier="Connect" price="€325" blurb="Voor wie actief wil verbinden en zaken wil doen tijdens onze events."
+        ctaLabel="Word Connect-lid" ctaHref="/lidmaatschap" featured
         featuresIntro="Alles uit Basis, plus:" features={netwerkFeatures} />
       <PrijsCard
-        tier="Zichtbaar & Groei" price="€450" period="/ jaar (intro)"
+        tier="Groei" price="€450" period="/ jaar (intro)"
         blurb="Voor wie marketing, kennis en zichtbaarheid wil uitbesteden."
         ctaLabel="Word lid" ctaHref="/lidmaatschap"
-        featuresIntro="Alles uit Netwerk, plus:" features={groeiFeatures} />
+        featuresIntro="Alles uit Connect, plus:" features={groeiFeatures} />
     </div>
   </section>
 
@@ -252,7 +260,7 @@ const nieuws = (await getCollection('nieuws'))
       <div class="news-inner">
         <div>
           <h2 class="news-title">Blijf op de hoogte</h2>
-          <p class="news-lead">Nieuws, acties en bijeenkomsten — eens per maand in je inbox. Geen ruis, wel waarde.</p>
+          <p class="news-lead">Nieuws, acties en bijeenkomsten — elke week in je inbox. Geen ruis, wel waarde.</p>
         </div>
         {/* In productie koppelen aan Laposta. */}
         <form class="news-form" id="newsletter">

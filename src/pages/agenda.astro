@@ -7,7 +7,11 @@ import { agendaStijl, dag, maandKort } from '../lib/taxonomy';
 
 const filters = ['Alles', 'Netwerkborrels', 'Bedrijfsbezoeken', 'Regio-evenementen', 'Vieringen'];
 
+// Verlopen events tonen we niet meer.
+const vandaag = new Date();
+vandaag.setHours(0, 0, 0, 0);
 const events = (await getCollection('agenda'))
+  .filter((e) => e.data.date.valueOf() >= vandaag.valueOf())
   .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf())
   .map((e) => {
     const stijl = agendaStijl(e.data.category);
