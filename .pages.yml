@@ -1,0 +1,448 @@
+# Configuratie voor Pages CMS (https://pagescms.org)
+# Beheerders loggen in op https://app.pagescms.org met hun GitHub-account
+# en kunnen daarna alle onderstaande content via formulieren bewerken.
+# Elke opgeslagen wijziging wordt een commit; GitHub Actions publiceert de site automatisch.
+
+media:
+  input: public/img
+  output: /img
+
+content:
+  # ---------- Agenda ----------
+  - name: agenda
+    label: Agenda
+    description: Bijeenkomsten en evenementen. Verlopen items verdwijnen automatisch van de site.
+    type: collection
+    path: src/content/agenda
+    format: yaml-frontmatter
+    view:
+      fields: [title, category, date]
+      sort: [date]
+      default:
+        sort: date
+        order: asc
+    fields:
+      - name: title
+        label: Titel
+        type: string
+        required: true
+      - name: category
+        label: Categorie (bv. Netwerkborrel, Viering, Regio-evenement)
+        type: string
+        required: true
+      - name: excerpt
+        label: Korte omschrijving (voor de kaart)
+        type: text
+        required: true
+      - name: date
+        label: Datum
+        type: date
+        required: true
+      - name: time
+        label: Tijd (bv. 17:00 — 20:00)
+        type: string
+      - name: location
+        label: Locatie
+        type: string
+      - name: signup
+        label: Aanmeldlink (URL; leeg = knop "Meer info")
+        type: string
+      - name: body
+        label: Uitgebreide tekst
+        type: rich-text
+
+  # ---------- Nieuws ----------
+  - name: nieuws
+    label: Nieuws
+    description: Nieuwsartikelen en verslagen van events.
+    type: collection
+    path: src/content/nieuws
+    format: yaml-frontmatter
+    view:
+      fields: [title, category, pubDate]
+      sort: [pubDate]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - name: title
+        label: Titel
+        type: string
+        required: true
+      - name: category
+        label: Categorie (bv. Terugblik, Vereniging)
+        type: string
+        required: true
+      - name: excerpt
+        label: Korte samenvatting (voor de kaart)
+        type: text
+        required: true
+      - name: pubDate
+        label: Publicatiedatum
+        type: date
+        required: true
+      - name: featured
+        label: Uitgelicht artikel (bovenaan de nieuwspagina)
+        type: boolean
+        default: false
+      - name: image
+        label: Afbeelding
+        type: image
+      - name: body
+        label: Artikeltekst
+        type: rich-text
+
+  # ---------- Algemene instellingen ----------
+  - name: instellingen
+    label: Instellingen
+    description: Ledenaantal, e-mailadres en links — op één plek voor de hele site.
+    type: file
+    path: src/data/instellingen.json
+    format: json
+    fields:
+      - name: ledenLabel
+        label: Ledenaantal als tekst (bv. 150+)
+        type: string
+        required: true
+      - name: ledenTotaal
+        label: Ledenaantal als getal (voor de "+X en jij?"-teller)
+        type: number
+        required: true
+      - name: email
+        label: E-mailadres vereniging
+        type: string
+        required: true
+      - name: ledenportaalUrl
+        label: Link ledenportaal (inloggen)
+        type: string
+      - name: aanmeldUrl
+        label: Link aanmeldformulier nieuw lid
+        type: string
+      - name: stiekmTrotsUrl
+        label: Link Stiekm Trots
+        type: string
+      - name: adresRegels
+        label: Adresregels (footer)
+        type: string
+        list: true
+
+  # ---------- Lidmaatschappen ----------
+  - name: pakketten
+    label: Lidmaatschappen
+    description: De drie pakketten zoals vastgesteld op de ALV. Wijzigingen verschijnen op de homepage én de lidmaatschapspagina.
+    type: file
+    path: src/data/pakketten.json
+    format: json
+    fields:
+      - name: intro
+        label: Introtekst boven de pakketten
+        type: text
+      - name: pakketten
+        label: Pakketten
+        type: object
+        list: true
+        fields:
+          - name: naam
+            label: Naam
+            type: string
+            required: true
+          - name: prijs
+            label: Prijs (bv. €75)
+            type: string
+            required: true
+          - name: periode
+            label: Periode-toevoeging (bv. "/ jaar (introductietarief)"; meestal leeg)
+            type: string
+          - name: blurb
+            label: Korte omschrijving
+            type: text
+          - name: ctaLabel
+            label: Knoptekst
+            type: string
+          - name: featured
+            label: Uitgelicht (gekleurde kaart, max. één)
+            type: boolean
+          - name: featuresIntro
+            label: Kop boven de lijst (bv. "Alles uit Basis, plus:")
+            type: string
+          - name: features
+            label: Wat zit erin
+            type: string
+            list: true
+
+  # ---------- Smoelenboek ----------
+  - name: leden
+    label: Smoelenboek
+    description: Getoonde leden (tijdelijk, tot de automatische koppeling met de ledenadministratie).
+    type: file
+    path: src/data/leden.json
+    format: json
+    fields:
+      - name: leden
+        label: Leden
+        type: object
+        list: true
+        fields:
+          - name: naam
+            label: Bedrijfsnaam
+            type: string
+            required: true
+          - name: initialen
+            label: Initialen (voor de avatar, bv. JdJ)
+            type: string
+            required: true
+          - name: branche
+            label: Branche
+            type: string
+          - name: pakket
+            label: Pakket
+            type: select
+            options:
+              values: [Basis, Connect, Groei]
+          - name: kleur
+            label: Avatarkleur
+            type: select
+            options:
+              values: [magenta, teal, oranje, rood, ink-500, teal-tekst]
+
+  # ---------- Homepage ----------
+  - name: home
+    label: Homepage
+    description: Alle teksten van de homepage.
+    type: file
+    path: src/data/home.json
+    format: json
+    fields:
+      - name: hero
+        label: Bovenste blok (hero)
+        type: object
+        fields:
+          - name: badge
+            label: Badgetekst
+            type: string
+          - name: titel
+            label: Titel (eerste deel)
+            type: string
+          - name: titelAccent
+            label: Titel (gekleurd slot)
+            type: string
+          - name: lead
+            label: Introtekst
+            type: text
+          - name: ctaLabel
+            label: Knoptekst
+            type: string
+          - name: fotoAlt
+            label: Foto-omschrijving (toegankelijkheid)
+            type: string
+          - name: stats
+            label: Statistieken (eerste "aantal" leeg laten = ledenaantal uit Instellingen)
+            type: object
+            list: true
+            fields:
+              - name: num
+                label: Aantal
+                type: string
+              - name: label
+                label: Omschrijving
+                type: string
+      - name: krachtenIntro
+        label: Kop boven de vier krachten
+        type: object
+        fields:
+          - name: kicker
+            label: Kicker (klein, in kleur)
+            type: string
+          - name: titel
+            label: Titel
+            type: string
+          - name: tekst
+            label: Tekst
+            type: text
+      - name: krachten
+        label: De vier krachten (volgorde bepaalt de kleur — niet herschikken)
+        type: object
+        list: true
+        fields:
+          - name: titel
+            label: Titel
+            type: string
+          - name: titelExtra
+            label: Titel-toevoeging (meestal leeg)
+            type: string
+          - name: badge
+            label: Badge (bv. "Eind 2026"; meestal leeg)
+            type: string
+          - name: tekst
+            label: Tekst
+            type: text
+          - name: linkLabel
+            label: Linktekst
+            type: string
+          - name: href
+            label: Link (bv. /agenda)
+            type: string
+      - name: smoelenboek
+        label: Smoelenboek-blok
+        type: object
+        fields:
+          - name: kicker
+            label: Kicker
+            type: string
+          - name: titelNaAantal
+            label: Titel ná het ledenaantal (bv. "ondernemers die je wílt kennen")
+            type: string
+          - name: lead
+            label: Tekst
+            type: text
+      - name: nieuwsbrief
+        label: Nieuwsbrief-blok
+        type: object
+        fields:
+          - name: titel
+            label: Titel
+            type: string
+          - name: lead
+            label: Tekst
+            type: text
+
+  # ---------- Over ons ----------
+  - name: over-ons
+    label: Over ons
+    description: Alle teksten van de pagina "Over ons".
+    type: file
+    path: src/data/over-ons.json
+    format: json
+    fields:
+      - name: heroLead
+        label: Introtekst bovenaan
+        type: text
+      - name: verhaal
+        label: Ontstaansverhaal
+        type: object
+        fields:
+          - name: titel
+            label: Titel
+            type: string
+          - name: paragrafen
+            label: Alinea's
+            type: text
+            list: true
+      - name: blokken
+        label: Twee themabokken
+        type: object
+        list: true
+        fields:
+          - name: titel
+            label: Titel
+            type: string
+          - name: tekst
+            label: Tekst
+            type: text
+      - name: krachten
+        label: Vier krachten (korte versie; volgorde bepaalt de kleur)
+        type: object
+        list: true
+        fields:
+          - name: titel
+            label: Titel
+            type: string
+          - name: tekst
+            label: Tekst
+            type: text
+      - name: cta
+        label: Afsluitend blok (word lid)
+        type: object
+        fields:
+          - name: titel
+            label: Titel
+            type: string
+          - name: tekstNaAantal
+            label: Tekst ná "Sluit je aan bij [aantal]"
+            type: string
+          - name: knop
+            label: Knoptekst
+            type: string
+
+  # ---------- Bedrijventerreinen ----------
+  - name: bedrijventerreinen
+    label: Bedrijventerreinen
+    description: Teksten en lijsten van de Parkmanagement-pagina.
+    type: file
+    path: src/data/bedrijventerreinen.json
+    format: json
+    fields:
+      - name: contact
+        label: Contactgegevens Parkmanagement
+        type: object
+        fields:
+          - name: contactpersoon
+            label: Contactpersoon
+            type: string
+          - name: email
+            label: E-mailadres
+            type: string
+          - name: telefoon
+            label: Telefoonnummer (weergave)
+            type: string
+          - name: telefoonLink
+            label: Telefoonnummer (belbaar, bv. +31612345678)
+            type: string
+      - name: terreinen
+        label: Terreinen
+        type: string
+        list: true
+      - name: diensten
+        label: Diensten (volgorde bepaalt de kleur — niet herschikken)
+        type: object
+        list: true
+        fields:
+          - name: titel
+            label: Titel
+            type: string
+          - name: tekst
+            label: Tekst
+            type: text
+      - name: doelen
+        label: Doelstellingen
+        type: string
+        list: true
+      - name: documenten
+        label: Documenten
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Naam
+            type: string
+          - name: meta
+            label: Bestandstype (bv. PDF)
+            type: string
+          - name: href
+            label: Pad (bv. /docs/parkmanagement/bestand.pdf)
+            type: string
+      - name: formulieren
+        label: Formulieren
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Naam
+            type: string
+          - name: meta
+            label: Bestandstype
+            type: string
+          - name: href
+            label: Pad
+            type: string
+      - name: bestuur
+        label: Bestuur
+        type: object
+        list: true
+        fields:
+          - name: naam
+            label: Naam
+            type: string
+          - name: rol
+            label: Rol
+            type: string
